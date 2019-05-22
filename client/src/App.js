@@ -18,7 +18,7 @@ class App extends Component {
       .post('/issue/upload', file)
       .then(response => {
         console.log(response);
-        const secureUrl = response.secure_url;
+        const secureUrl = response.data.secure_url;
         console.log(secureUrl);
         return secureUrl;
       })

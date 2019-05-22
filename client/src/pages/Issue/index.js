@@ -10,10 +10,31 @@ class Issue extends Component {
     video: String()
   };
 
+  handleInputChange = field => e => this.setState({ [field]: e.target.value });
+
+  handleFile = async e => {
+    const { handleUpload } = this.props;
+
+    const uploadData = new FormData();
+    //await uploadData.append('imageUrl', this.state.photoUrl);
+    uploadData.append('imageUrl', e.target.files[0]);
+
+    //await console.log(uploadData.get('imageUrl'));
+    //console.log(uploadData);
+
+    //console.log(this.state.photoUrl, 'this is the photoURL');
+    //const getResult = handleUpload(uploadData.get('imageUrl'));
+    const getResult = handleUpload(uploadData);
+
+    console.log(getResult, 'get result!');
+    await this.setState({ photoUrl: getResult });
+    console.log(this.state.photoUrl);
+  };
+
   handleFormSubmit = e => {
     e.preventDefault();
 
-    const { addIssue, handleUpload } = this.props;
+    const { addIssue } = this.props;
 
     // const uploadData = new FormData();
     // uploadData.append('imageUrl', this.state.photoUrl);
@@ -30,41 +51,6 @@ class Issue extends Component {
       photoUrl: String(),
       videoUrl: String()
     });
-  };
-
-  // handleFileUpload = _ => {
-  //   // e.preventDefault();
-  //   const uploadData = new FormData();
-  //   const { handleUpload } = this.props;
-
-  //   uploadData.append('imageUrl', this.state.photoUrl);
-  //   // uploadData.append('imageUrl', e.target.files[0]);
-  //   console.log(this.state.photoUrl, this.state.photoUrl.name, 'photoUrl and name');
-  //   // handleUpload && handleUpload(this.uploadData);
-  //   handleUpload(uploadData).then(response => console.log(response));
-  //   // this.setState({photoUrl: secure_url)
-  //   // console.log(handleUpload(this.uploadData, 'please'));
-  //   // console.log(uploadData, 'this is upload data');
-  // };
-
-  handleInputChange = field => e => this.setState({ [field]: e.target.value });
-
-  handleFile = async e => {
-    const { handleUpload } = this.props;
-
-    const uploadData = new FormData();
-    //await uploadData.append('imageUrl', this.state.photoUrl);
-    uploadData.append('imageUrl', e.target.files[0]);
-
-    //await console.log(uploadData.get('imageUrl'));
-    //console.log(uploadData);
-
-    //console.log(this.state.photoUrl, 'this is the photoURL');
-    //const getResult = handleUpload(uploadData.get('imageUrl'));
-    const getResult = await handleUpload(uploadData);
-
-    console.log(getResult, 'get result!');
-    this.setState({ photoUrl: getResult });
   };
 
   render() {
