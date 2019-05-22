@@ -13,14 +13,16 @@ class App extends Component {
   };
 
   handleUpload = file => {
-    axios.post('/issue/upload', file).then(response => {
-      const secureUrl = response.secure_url;
-      console.log(secureUrl);
-      return secureUrl;
-    });
-    // return 'this is working';
-    //console.log(file, 'this is the file');
-    // console.log('this is my file', file);
+    console.log('file', file);
+    axios
+      .post('/issue/upload', file)
+      .then(response => {
+        console.log(response);
+        const secureUrl = response.secure_url;
+        console.log(secureUrl);
+        return secureUrl;
+      })
+      .catch(err => console.error(err));
   };
 
   render() {

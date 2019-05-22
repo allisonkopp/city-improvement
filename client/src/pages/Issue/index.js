@@ -50,19 +50,21 @@ class Issue extends Component {
   handleInputChange = field => e => this.setState({ [field]: e.target.value });
 
   handleFile = async e => {
-    this.setState({ photoUrl: e.target.files[0] });
-
     const { handleUpload } = this.props;
 
     const uploadData = new FormData();
-    await uploadData.append('imageUrl', this.state.photoUrl);
-    await console.log(uploadData.get('imageUrl'));
-    console.log(uploadData);
+    //await uploadData.append('imageUrl', this.state.photoUrl);
+    uploadData.append('imageUrl', e.target.files[0]);
 
-    console.log(this.state.photoUrl, 'this is the photoURL');
-    const getResult = handleUpload(uploadData.get('imageUrl'));
+    //await console.log(uploadData.get('imageUrl'));
+    //console.log(uploadData);
+
+    //console.log(this.state.photoUrl, 'this is the photoURL');
+    //const getResult = handleUpload(uploadData.get('imageUrl'));
+    const getResult = await handleUpload(uploadData);
+
     console.log(getResult, 'get result!');
-    await this.setState({ photoUrl: getResult });
+    this.setState({ photoUrl: getResult });
   };
 
   render() {
