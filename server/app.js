@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -15,14 +17,6 @@ const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
-// allow access to the API from different domains/origins
-// app.use(
-//   cors({
-//     // this could be multiple domains/origins, but we will allow just our React app
-//     origin: ['http://localhost:5000', 'http://localhost:3000']
-//   })
-// );
-
 app.use(
   session({
     secret: 'hello world',
@@ -36,11 +30,13 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(cors());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', rootRoutes);
 app.use('/books', bookRoutes);
 app.use('/issue', issueRoutes);
-app.use('/api', fileUploadRoutes);
+app.use('/issue', fileUploadRoutes);
 
 app.listen(5000, _ => console.log('Express App listening on port 5000'));

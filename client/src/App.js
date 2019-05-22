@@ -12,8 +12,15 @@ class App extends Component {
     console.log('this is my form data', formData);
   };
 
-  handleUpload = async file => {
-    axios.post(process.env.CLOUDINARY_URL, file).then(res => res.data);
+  handleUpload = file => {
+    axios.post('/issue/upload', file).then(response => {
+      const secureUrl = response.secure_url;
+      console.log(secureUrl);
+      return secureUrl;
+    });
+    // return 'this is working';
+    //console.log(file, 'this is the file');
+    // console.log('this is my file', file);
   };
 
   render() {
