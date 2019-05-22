@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { SectionWrapper } from '../../components';
+import axios from 'axios';
 
 class Issue extends Component {
   state = {
@@ -10,40 +11,36 @@ class Issue extends Component {
     video: String()
   };
 
-  handleInputChange = field => e => this.setState({ [field]: e.target.value });
+  addIssue = formData => {
+    axios.post('/issue/create', formData);
+    console.log('this is my form data', formData);
+  };
+
+  handleUpload = file => {
+    console.log('file', file);
+    axios
+      .post('/issue/upload', file)
+      .then(response => {
+        this.setState({ photoUrl: response.data.secure_url });
+      })
+      .catch(err => console.error(err));
+  };
 
   handleFile = async e => {
-    const { handleUpload } = this.props;
-
+    e.preventDefault();
     const uploadData = new FormData();
-    //await uploadData.append('imageUrl', this.state.photoUrl);
     uploadData.append('imageUrl', e.target.files[0]);
-
-    //await console.log(uploadData.get('imageUrl'));
-    //console.log(uploadData);
-
-    //console.log(this.state.photoUrl, 'this is the photoURL');
-    //const getResult = handleUpload(uploadData.get('imageUrl'));
-    const getResult = handleUpload(uploadData);
-
-    console.log(getResult, 'get result!');
-    await this.setState({ photoUrl: getResult });
-    console.log(this.state.photoUrl);
+    await this.handleUpload(uploadData);
+    // this.setState({ photoUrl: getResult });
+    // console.log(getResult, 'get result!');
+    // console.log(this.state.photoUrl);
   };
+
+  handleInputChange = field => e => this.setState({ [field]: e.target.value });
 
   handleFormSubmit = e => {
     e.preventDefault();
-
-    const { addIssue } = this.props;
-
-    // const uploadData = new FormData();
-    // uploadData.append('imageUrl', this.state.photoUrl);
-    // console.log(uploadData.get('imageUrl'));
-    // console.log(this.state.photoUrl, 'this is the photoURL');
-
-    // handleUpload(uploadData.get('imageUrl'));
-
-    addIssue && addIssue(this.state);
+    this.addIssue && this.addIssue(this.state);
     this.setState({
       issue: String(),
       comments: String(),
@@ -51,6 +48,7 @@ class Issue extends Component {
       photoUrl: String(),
       videoUrl: String()
     });
+    console.log(this.state, 'this is the state');
   };
 
   render() {
@@ -73,8 +71,6 @@ class Issue extends Component {
             <div>
               <label>Photo: </label>
               <input type="file" onChange={this.handleFile} />
-
-              {/* <button onClick={this.handleFileUpload}>Upload!</button> */}
             </div>
             <div>
               <label>Video: </label>
