@@ -3,10 +3,8 @@ const router = express.Router();
 const User = require('../models/user');
 
 router.get('/user', (req, res) =>
-  User.findById(req.session.userId).exec((err, { name, favoriteBook }) =>
-    err
-      ? res.send({ status: 400, message: 'Could not find user', error: true })
-      : res.send({ name, favoriteBook, status: 200 })
+  User.findById(req.session.userId).exec((err, { name }) =>
+    err ? res.send({ status: 400, message: 'Could not find user', error: true }) : res.send({ name, status: 200 })
   )
 );
 
@@ -22,10 +20,10 @@ router.post('/login', (req, res) => {
 
 router.post('/register', (req, res) => {
   const { body: { email, name, favoriteBook, password, confirmPassword } = {} } = req;
-  if (!(email && name && favoriteBook && password && confirmPassword))
+  if (!(email && name && password && confirmPassword))
     return res.send({ message: 'All fields required', status: 400, error: true });
   if (password !== confirmPassword) return res.send({ message: 'Password does not match', status: 400, error: true });
-  const userData = { email, name, favoriteBook, password };
+  const userData = { email, name, password };
   const newUser = new User(userData);
   newUser.save((err, user) =>
     err

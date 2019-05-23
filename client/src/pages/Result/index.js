@@ -1,36 +1,28 @@
 import React, { Component } from 'react';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
 import { SectionWrapper } from '../../components';
-// import dotenv from 'dotenv';
-import axios from 'axios';
+import { MapContainer } from '../../components';
 
-// export class MapContainer extends Component {
-export default class Result extends Component {
-  state = { issues: [] };
+class Result extends Component {
+  // state = { issues: [], coords: [] };
 
-  getData = e => {
-    axios.get('/results').then(response => {
-      this.setState({ issues: response.data });
-    });
-  };
+  // getData = e => {
+  //   axios.get('/results').then(response => {
+  //     const data = Object.entries(response.data.issues);
+  //     console.log(data);
+  //     const coords = data.map(x => x[1].location);
+  //     console.log(coords);
+  //     this.setState({ issues: data, coords: coords });
+  //   });
+  // };
 
   render() {
     return (
       <SectionWrapper>
-        <button onClick={this.getCoords}>click me</button>
+        {/* <button onClick={this.getData}>click me</button> */}
+        <MapContainer />
       </SectionWrapper>
-      // <Map
-      //   google={this.props.google}
-      //   zoom={14}
-      //   initialCenter={{
-      //     lat: -1.2884,
-      //     lng: 36.8233
-      //   }}
-      // />
     );
   }
 }
 
-// export default GoogleApiWrapper({
-//   apiKey: process.env.GOOGLE_MAPS_KEY
-// })(MapContainer);
+export default Result;
