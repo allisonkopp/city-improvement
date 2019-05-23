@@ -1,20 +1,42 @@
 import React, { Component } from 'react';
-import { Map, Marker, GoogleApiWrapper, InfoWindow } from 'google-maps-react';
+import { SectionWrapper } from '../../components';
+import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
+// import MarkerInfo from '../MarkerInfo';
 import axios from 'axios';
-import Markers from '.';
+import InfoWindow from '../InfoWindow';
 
 export class MapContainer extends Component {
-  state = { issues: [], coords: [], isOpen: false, activeMarker: {}, selectedPlace: {} };
+  state = { issues: [], coords: [], showInfoWindow: false, activeMarker: {} };
+  // isOpen: false, activeMarker: String(), selectedPlace: { }
 
   componentDidMount() {
     this.getData();
   }
 
-  handleToggle = e => marker => {
-    !this.state.isOpen
-      ? this.setState({ isOpen: true, activeMarker: marker })
-      : this.setState({ isOpen: false, activeMarker: null });
+  onInfoWindowClose = _ => {
+    this.setState({
+      showingInfoWindow: false,
+      activeMarker: null
+    });
   };
+
+  onMapClick = _ => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+      });
+    }
+  };
+
+  // handleToggle = e => (markerId, props) => {
+  //   !this.state.isOpen
+  //     ? this.setState({ isOpen: true, activeMarker: markerId, selectedPlace: props })
+  //     : this.setState({ isOpen: false, activeMarker: null, selectedPlace: null });
+  //   console.log(this.state.isOpen);
+  //   console.log(this.state.activeMarker);
+  //   console.log(this.state.selectedPlace);
+  // };
 
   // setActiveMarker = e => marker => {
   //   this.setState({ activeMarker: marker });
@@ -32,14 +54,11 @@ export class MapContainer extends Component {
     });
   };
 
-  // getMarkerInfo = (name, comments, img) => {
-  //   return ()
-  // }
-
   render() {
     return (
-      <>
+      <SectionWrapper>
         <Map
+          onClick={this.onMapClick}
           google={this.props.google}
           zoom={14}
           initialCenter={{
@@ -50,19 +69,22 @@ export class MapContainer extends Component {
           {this.state.issues.map(x => {
             return (
               <Marker
-                onClick={this.handleToggle}
+                // onClick={this.handleToggle(x._id)}
                 position={{ lat: x.location.coordinates[0], lng: x.location.coordinates[1] }}
               >
-                <InfoWindow onClick={this.handleToggle}>
-                  {/* <h1>{x.issue}</h1> */}
-                  <h1>Test!</h1>
-                  {console.log('this is working?', x.issue)}
+                <InfoWindow
+                  marker={this.state.activeMarker}
+                  visible={this.state.showingInfoWindow}
+                  onClose={this.onInfoWindowClose}
+                >
+                  <h1>Hello world</h1>
                 </InfoWindow>
               </Marker>
             );
           })}
         </Map>
-      </>
+        {/* <Markers /> */}
+      </SectionWrapper>
     );
   }
 }

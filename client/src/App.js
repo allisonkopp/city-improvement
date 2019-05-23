@@ -7,24 +7,6 @@ import { NavBar, AuthRoute } from './components';
 class App extends Component {
   state = { issues: [] };
 
-  // addIssue = async formData => {
-  //   await axios.post('/issue/create', formData);
-  //   console.log('this is my form data', formData);
-  // };
-
-  // handleUpload = file => {
-  //   console.log('file', file);
-  //   axios
-  //     .post('/issue/upload', file)
-  //     .then(response => {
-  //       console.log(response);
-  //       const secureUrl = response.data.secure_url;
-  //       console.log(secureUrl);
-  //       return secureUrl;
-  //     })
-  //     .catch(err => console.error(err));
-  // };
-
   render() {
     return (
       <>

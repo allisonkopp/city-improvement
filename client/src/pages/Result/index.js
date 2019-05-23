@@ -18,7 +18,6 @@ class Result extends Component {
   render() {
     return (
       <SectionWrapper>
-        {/* <button onClick={this.getData}>click me</button> */}
         <MapContainer />
       </SectionWrapper>
     );

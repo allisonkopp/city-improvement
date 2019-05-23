@@ -19,7 +19,7 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
-  const { body: { email, name, favoriteBook, password, confirmPassword } = {} } = req;
+  const { body: { email, name, password, confirmPassword } = {} } = req;
   if (!(email && name && password && confirmPassword))
     return res.send({ message: 'All fields required', status: 400, error: true });
   if (password !== confirmPassword) return res.send({ message: 'Password does not match', status: 400, error: true });
