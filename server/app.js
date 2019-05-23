@@ -9,6 +9,7 @@ const rootRoutes = require('./routes/rootRoutes');
 const bookRoutes = require('./routes/bookRoutes');
 const issueRoutes = require('./routes/issueRoutes');
 const fileUploadRoutes = require('./routes/fileUploadRoutes');
+const resultRoutes = require('./routes/resultRoutes');
 const cors = require('cors');
 const app = express();
 
@@ -38,5 +39,6 @@ app.use('/', rootRoutes);
 app.use('/books', bookRoutes);
 app.use('/issue', issueRoutes);
 app.use('/issue', fileUploadRoutes);
+app.use('/results', resultRoutes);
 
 app.listen(5000, _ => console.log('Express App listening on port 5000'));

@@ -8,7 +8,15 @@ const IssueSchema = new Schema({
     required: true
   },
   location: {
-    type: String
+    type: {
+      type: String,
+      enum: ['Point'],
+      required: true
+    },
+    coordinates: {
+      type: [Number],
+      required: true
+    }
     // required: true
   },
   comments: {
@@ -37,6 +45,8 @@ IssueSchema.methods.addUser = function(userId) {
   this.user = userId;
   return this.save();
 };
+
+IssueSchema.index({ location: '2dsphere' });
 
 const Issue = mongoose.model('Issue', IssueSchema);
 module.exports = Issue;

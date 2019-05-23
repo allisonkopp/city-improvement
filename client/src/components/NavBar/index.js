@@ -21,8 +21,8 @@ const NavBar = _ => (
               <NavLink className="nav-item nav-link" to="/issue">
                 Form
               </NavLink>
-              <NavLink className="nav-item nav-link" to="/create-book">
-                Another One
+              <NavLink className="nav-item nav-link" to="/results">
+                Results
               </NavLink>
             </>
           )}

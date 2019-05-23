@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { Home, About, Login, Profile, Register, Error, Issue } from './pages';
+import { Home, About, Login, Profile, Register, Error, Issue, Result } from './pages';
 import { NavBar, AuthRoute } from './components';
 // import axios from 'axios';
 
@@ -34,7 +34,7 @@ class App extends Component {
         <Route exact path="/login" component={Login} />
         <Route exact path="/about" component={About} />
         <Route exact path="/issue" component={Issue} />
-        {/* <Route exact path="/issue" render={_ => <Issue addIssue={this.addIssue} handleUpload={this.handleUpload} />} /> */}
+        <Route exact path="/results" component={Result} />
         <Route exact path="/error" component={Error} />
         <AuthRoute exact path="/profile" component={Profile} />
       </>

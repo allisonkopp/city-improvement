@@ -7,3 +7,4 @@ export { default as AuthRoute } from './AuthRoute';
 export { default as AccessButton } from './AccessButton';
 export { default as Modal } from './Modal';
 export { default as Book } from './Book';
+export { default as Result } from './Result';

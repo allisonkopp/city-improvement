@@ -5,7 +5,10 @@ import axios from 'axios';
 class Issue extends Component {
   state = {
     issue: String(),
-    location: String(),
+    location: {
+      type: 'Point',
+      coordinates: [Number]
+    },
     comments: String(),
     date: Date(),
     photoUrl: String(),
@@ -43,7 +46,10 @@ class Issue extends Component {
     this.addIssue && this.addIssue(this.state);
     this.setState({
       issue: String(),
-      location: String(),
+      location: {
+        type: 'Point',
+        coordinates: [Number]
+      },
       comments: String(),
       date: Date(),
       photoUrl: String(),
@@ -62,10 +68,16 @@ class Issue extends Component {
 
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
-          const coords = `${lat}, ${lng}`;
+          const coords = [];
+          coords.push(lat, lng);
           console.log(coords);
           // if (coords) return coords;
-          this.setState({ location: coords });
+          this.setState({
+            location: {
+              type: 'Point',
+              coordinates: coords
+            }
+          });
         },
         error => {
           clearTimeout(location_timeout);
