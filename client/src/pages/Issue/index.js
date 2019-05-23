@@ -42,7 +42,6 @@ class Issue extends Component {
   handleFormSubmit = e => {
     e.preventDefault();
     this.getLocation();
-    // console.log(locationData, 'this is the location');
     this.addIssue && this.addIssue(this.state);
     this.setState({
       issue: String(),
