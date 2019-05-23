@@ -5,6 +5,7 @@ import axios from 'axios';
 class Issue extends Component {
   state = {
     issue: String(),
+    location: String(),
     comments: String(),
     date: Date(),
     photoUrl: String(),
@@ -31,24 +32,47 @@ class Issue extends Component {
     const uploadData = new FormData();
     uploadData.append('imageUrl', e.target.files[0]);
     await this.handleUpload(uploadData);
-    // this.setState({ photoUrl: getResult });
-    // console.log(getResult, 'get result!');
-    // console.log(this.state.photoUrl);
   };
 
   handleInputChange = field => e => this.setState({ [field]: e.target.value });
 
   handleFormSubmit = e => {
     e.preventDefault();
+    this.getLocation();
+    // console.log(locationData, 'this is the location');
     this.addIssue && this.addIssue(this.state);
     this.setState({
       issue: String(),
+      location: String(),
       comments: String(),
       date: Date(),
       photoUrl: String(),
       videoUrl: String()
     });
     console.log(this.state, 'this is the state');
+  };
+
+  getLocation = _ => {
+    // e.preventDefault();
+    if (navigator.geolocation) {
+      const location_timeout = setTimeout(10000);
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          clearTimeout(location_timeout);
+
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          const coords = `${lat}, ${lng}`;
+          console.log(coords);
+          // if (coords) return coords;
+          this.setState({ location: coords });
+        },
+        error => {
+          clearTimeout(location_timeout);
+          console.log("this isn't working");
+        }
+      );
+    }
   };
 
   render() {
@@ -79,6 +103,7 @@ class Issue extends Component {
             <input type="submit" value="Submit Issue" />
           </div>
         </form>
+        <button onClick={this.getLocation}>GET LOCATION</button>
       </SectionWrapper>
     );
   }

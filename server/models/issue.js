@@ -7,6 +7,10 @@ const IssueSchema = new Schema({
     // enum: [garbage, recycling, flooding, light, debris, pothole, traffic, other],
     required: true
   },
+  location: {
+    type: String
+    // required: true
+  },
   comments: {
     type: String,
     required: false
