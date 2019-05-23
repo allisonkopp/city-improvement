@@ -8,3 +8,5 @@ export { default as AccessButton } from './AccessButton';
 export { default as Modal } from './Modal';
 export { default as MapContainer } from './MapContainer';
 export { default as InfoWindow } from './InfoWindow';
+export { default as PopUp } from './PopUp';
+export { default as BarGraph } from './BarGraph';

@@ -6,3 +6,6 @@ export { default as Profile } from './Profile';
 export { default as Error } from './Error';
 export { default as Issue } from './Issue';
 export { default as Result } from './Result';
+export { default as GoogleMap } from './GoogleMap';
+export { default as HeatMap } from './HeatMap';
+export { default as Graph } from './Graph';
