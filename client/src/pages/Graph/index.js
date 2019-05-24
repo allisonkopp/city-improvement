@@ -1,19 +1,6 @@
 import React, { Component } from 'react';
 import { SectionWrapper, LineGraph } from '../../components';
-
-const labels = ['Flood', 'Garbage', 'Recycling', 'Light Outage', 'Debris', 'Pothole', 'Traffic Pattern', 'Other'];
-const countIssues = (arr, issue) => arr.filter(x => x.issue === issue).length;
-//Fix this if there are multiple with same frequency
-const calculateMax = arr => arr.reduce((x, y) => (x.frequency > y.frequency ? x : y), arr[0]);
-
-const createFreqObj = (issue, frequency) => {
-  return {
-    issue: issue,
-    frequency: frequency
-  };
-};
-
-const createObjArr = (arr, dataArr) => arr.map(x => createFreqObj(x, countIssues(dataArr, x)));
+import { labels, calculateMax, createObjArr } from '../../utils';
 class Graph extends Component {
   state = {
     data: []

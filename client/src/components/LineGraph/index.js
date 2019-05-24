@@ -1,8 +1,7 @@
 import React from 'react';
 import { LineChart, ResponsiveContainer, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
-const LineGraph = ({ data, xAxisLabel, yAxisLabel, dataKey }) => {
-  console.log('datatatt', data);
+const LineGraph = ({ data, xAxisLabel, dataKey }) => {
   return (
     <>
       {/* <ResponsiveContainer width={900} height="80%"> */}
