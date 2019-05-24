@@ -10,3 +10,4 @@ export { default as MapContainer } from './MapContainer';
 export { default as InfoWindow } from './InfoWindow';
 export { default as PopUp } from './PopUp';
 export { default as LineGraph } from './LineGraph';
+export { default as BarGraph } from './BarGraph';

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { SectionWrapper, LineGraph } from '../../components';
 
+const labels = ['Flood', 'Garbage', 'Recycling', 'Light Outage', 'Debris', 'Pothole', 'Traffic Pattern', 'Other'];
+
 const countIssues = (arr, issue) => arr.filter(x => x.issue === issue).length;
+//Fix this if there are multiple with same frequency
+const calculateMax = arr => arr.reduce((x, y) => (x.frequency > y.frequency ? x : y), arr[0]);
 
 const createObj = (issue, frequency) => {
   return {
@@ -11,76 +15,30 @@ const createObj = (issue, frequency) => {
 };
 
 const createObjArr = (arr, dataArr) => arr.map(x => createObj(x, countIssues(dataArr, x)));
-
-const labels = ['Flood', 'Garbage', 'Recycling', 'Light Outage', 'Debris', 'Pothole', 'Traffic Pattern', 'Other'];
 class Graph extends Component {
   state = {
-    issues: this.props.issues,
     data: []
   };
 
-  createDataSet = _ => {
-    const dataSet = createObjArr(labels, this.state.issues);
-    this.setState({ data: dataSet });
-    // return [
-    //   createObj('Flood', countIssues(issues, 'Flood')),
-    //   createObj('Garbage', countIssues(issues, 'Garbage')),
-    //   createObj('Recycling', countIssues(issues, 'Recycling')),
-    //   createObj('Light Outage', countIssues(issues, 'Light Outage')),
-    //   createObj('Debris', countIssues(issues, 'Debris')),
-    //   createObj('Pothole', countIssues(issues, 'Pothole')),
-    //   createObj('Traffic Pattern', countIssues(issues, 'Traffic Pattern')),
-    //   createObj('Other', countIssues(issues, 'Other'))
-    // ];
-  };
-
-  componentDidMount() {
-    this.createDataSet();
-    // const dataSet = [
-    //   {
-    //     issue: 'Flood',
-    //     frequency: countIssues(issues, 'Flood')
-    //   },
-    //   {
-    //     issue: 'Garbage',
-    //     frequency: countIssues(issues, 'Garbage')
-    //   },
-    //   {
-    //     issue: 'Recycling',
-    //     frequency: countIssues(issues, 'Recycling')
-    //   },
-    //   {
-    //     issue: 'Light Outage',
-    //     frequency: countIssues(issues, 'Light Outage')
-    //   },
-    //   {
-    //     issue: 'Debris',
-    //     frequency: countIssues(issues, 'Debris')
-    //   },
-    //   {
-    //     issue: 'Pothole',
-    //     frequency: countIssues(issues, 'Pothole')
-    //   },
-    //   {
-    //     issue: 'Traffic Pattern',
-    //     frequency: countIssues(issues, 'Traffic Pattern')
-    //   },
-    //   {
-    //     issue: 'Other',
-    //     frequency: countIssues(issues, 'Other')
-    //   }
-    // ];
-    // this.setState({ data: dataSet });
+  componentWillReceiveProps(props) {
+    // console.log(props, this.props);
+    this.createDataSet(props);
   }
 
+  createDataSet = props => {
+    const dataSet = createObjArr(labels, props.issues);
+    this.setState({ data: dataSet });
+  };
+
   render() {
-    console.log(this.state.data, 'this is state.data');
-    console.log(this.state.issues, 'this is state.issues');
-    console.log(this.props.issues, 'this is prop.issues');
+    const getTopIssue = _ => {
+      if (this.state.data.length) return calculateMax(this.state.data).issue;
+    };
+
     return (
       <SectionWrapper>
-        <h1>Graph here</h1>
-        <LineGraph data={this.state.data} xAxisLabel={'issue'} dataKey={'Issues'} />
+        <LineGraph data={this.state.data} xAxisLabel={'issue'} dataKey={'frequency'} />
+        <h3>The top issue is {getTopIssue()}</h3>
       </SectionWrapper>
     );
   }

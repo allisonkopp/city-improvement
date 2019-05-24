@@ -14,7 +14,7 @@ class App extends Component {
   getData = _ => {
     axios.get('/results').then(response => {
       let data = Object.entries(response.data.issues).map(x => x[1]);
-      // console.log(data);
+      console.log(data);
       const coords = data.map(x => x.location.coordinates);
       // console.log(coords);
       this.setState({ issues: data, coords: coords });

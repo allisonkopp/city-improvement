@@ -1,15 +1,13 @@
 import React from 'react';
 import { LineChart, ResponsiveContainer, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
-// const countIssues = (arr, issue) => arr.filter(x => x.issue === issue).length;
-
 const LineGraph = ({ data, xAxisLabel, yAxisLabel, dataKey }) => {
   console.log('datatatt', data);
   return (
     <>
-      {/* <ResponsiveContainer> */}
+      {/* <ResponsiveContainer width={900} height="80%"> */}
       <LineChart
-        width={730}
+        width={900}
         height={250}
         data={data}
         margin={{
@@ -20,8 +18,8 @@ const LineGraph = ({ data, xAxisLabel, yAxisLabel, dataKey }) => {
         }}
       >
         <XAxis dataKey={xAxisLabel} />
-        <YAxis dataKey={yAxisLabel} />
-        <Tooltip />
+        <YAxis type="number" domain={[0, 'dataMax']} allowDecimals={false} />
+        <Tooltip active={true} />
         <Legend />
         <Line type="monotone" dataKey={dataKey} stroke="#8884d8" />
       </LineChart>
