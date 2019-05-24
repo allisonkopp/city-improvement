@@ -92,7 +92,17 @@ class Issue extends Component {
         <form onSubmit={this.handleFormSubmit}>
           <div>
             <label>Type of Issue:</label>
-            <input type="text" onChange={this.handleInputChange('issue')} required />
+            {/* <input type="text" onChange={this.handleInputChange('issue')} required /> */}
+            <select name="issues" onBlur={this.handleInputChange('issue')}>
+              <option value="Flood">Flood</option>
+              <option value="Garbage">Garbage</option>
+              <option value="Recycling">Recycling</option>
+              <option value="Light Outage">Light Outage</option>
+              <option value="Debris">Debris</option>
+              <option value="Pothole">Pothole</option>
+              <option value="Traffic Pattern">Traffic Pattern</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
           <div>
             <label>Comments:</label>
