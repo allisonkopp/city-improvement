@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { SectionWrapper } from '../../components';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
-import axios from 'axios';
 import PopUp from '../PopUp';
 // import InfoWindow from '../InfoWindow';
 

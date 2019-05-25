@@ -12,7 +12,7 @@ const labels = [
   { issue: 'Other', color: '#154360 ' }
 ];
 
-const BarGraph = ({ data, xAxisLabel, topIssuesArr }) => {
+const BarGraph = ({ data, xAxisLabel, yAxisLabel, dataKey, color }) => {
   return (
     <>
       <BarChart
@@ -27,12 +27,10 @@ const BarGraph = ({ data, xAxisLabel, topIssuesArr }) => {
         }}
       >
         <XAxis dataKey={xAxisLabel} />
-        <YAxis type="number" domain={[0, 'dataMax']} allowDecimals={false} />
-        <Tooltip active={true} />
+        <YAxis dataKey={yAxisLabel} type="number" domain={[0, 'dataMax']} allowDecimals={false} />
+        <Tooltip />
         <Legend />
-        {topIssuesArr.map(x => (
-          <Bar dataKey={x.issue} fill={x.color} />
-        ))}
+        <Bar dataKey={dataKey} fill={'#3498DB '} />
       </BarChart>
     </>
   );
