@@ -53,7 +53,10 @@ export const parseGeoJson = data => {
       coordinates: item.location.coordinates
       // coordinates: [item.location.coordinates[1], item.location.coordinates[0]]
     },
-    properties: { ...item }
+    properties: {
+      frequency: countIssues(data, item.issue),
+      ...item
+    }
   }));
   return {
     type: 'FeatureCollection',
