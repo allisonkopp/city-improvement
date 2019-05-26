@@ -6,12 +6,11 @@ import { popupRenderer, parseGeoJson } from '../../utils';
 // import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 class Map extends Component {
-  state = { issues: [] };
+  state = { issues: [], parsedData: parseGeoJson(this.props.issues) };
 
-  async componentDidMount() {
-    await this.getData();
-    // const position = await loadPosition();
-    // const geoLoc = [position.coords.longitude, position.coords.latitude];
+  componentDidMount() {
+    this.getData();
+
     mapboxgl.accessToken = 'pk.eyJ1IjoiYW5keXdlaXNzMTk4MiIsImEiOiJIeHpkYVBrIn0.3N03oecxx5TaQz7YLg2HqA';
     const mapOptions = {
       container: 'map',
@@ -24,39 +23,32 @@ class Map extends Component {
       maximumAge: 30000,
       timeout: 27000
     };
-    await this.createMap(mapOptions, geolocationOptions);
+    this.createMap(mapOptions, geolocationOptions);
   }
 
   getData = _ => {
+    console.log(this.props, 'props');
     const { issues } = this.props;
-    this.setState({ issues });
+    this.setState({ issues }, console.log(issues));
   };
 
-  createMap = (mapOptions, geolocationOptions) => {
+  // parseData = data => {
+  //   if (data.length) this.setState({ parsedData: parseGeoJson(data) });
+  // };
+
+  createMap = async mapOptions => {
     this.map = new mapboxgl.Map(mapOptions);
     const map = this.map;
-    // map.addControl(new MapboxGeocoder({ accessToken: mapboxgl.accessToken }));
-    // map.addControl(
-    //   new mapboxgl.GeolocateControl({
-    //     positionOptions: geolocationOptions,
-    //     trackUserLocation: true
-    //   })
-    // );
+
     const nav = new mapboxgl.NavigationControl();
     map.addControl(nav, 'top-right');
+
+    const markerData = await this.state.parsedData;
+    console.log(markerData, 'this is marker data');
+
     map.on('load', _ => {
       this.fetchPlaces();
-      map.addSource(
-        'markers',
-        parseGeoJson({
-          type: 'geojson',
-          data: {
-            id: 'markers',
-            type: 'symbol',
-            source: 'markers'
-          }
-        })
-      );
+      map.addSource('markers', { type: 'geojson', data: markerData });
       map.on('click', 'markers', this.handleMarkerClick);
     });
   };
@@ -117,6 +109,7 @@ class Map extends Component {
   render() {
     console.log(this.props.issues, 'the props');
     console.log(this.state.issues, 'the state');
+    // console.log(this.state.parsedData, 'the parsed data please');
     return (
       <>
         <div id="map" ref={el => (this.mapContainer = el)} />

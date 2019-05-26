@@ -50,7 +50,7 @@ export const parseGeoJson = data => {
     type: 'Feature',
     geometry: {
       type: 'Point',
-      coordinates: [item.longitude, item.latitude]
+      coordinates: item.location.coordinates
     },
     properties: { ...item }
   }));
