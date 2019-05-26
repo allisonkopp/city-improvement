@@ -44,7 +44,7 @@ class App extends Component {
         <Route exact path="/about" component={About} />
         <Route exact path="/issue" component={Issue} />
         <Switch>
-          <Route exact path="/results" component={Result} />
+          <Route exact path="/results" render={_ => <Result issues={this.state.issues} />} />
           {/* <Route path="/results/google-map" render={_ => <GoogleMap issues={this.state.issues} />} /> */}
           <Route path="/results/map" render={_ => <MapBox issues={this.state.issues} />} />
           <Route path="/results/heat-map" component={HeatMap} />
