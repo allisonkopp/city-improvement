@@ -68,7 +68,7 @@ class Issue extends Component {
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
           const coords = [];
-          coords.push(lat, lng);
+          coords.push(lng, lat);
           console.log(coords);
           // if (coords) return coords;
           this.setState({

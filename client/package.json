@@ -9,6 +9,7 @@
     "classnames": "^2.2.6",
     "dotenv": "^8.0.0",
     "google-maps-react": "^2.0.2",
+    "maki": "^2.1.0",
     "mapbox-gl": "^1.0.0",
     "react": "^16.8.6",
     "react-chartjs-2": "^2.7.6",

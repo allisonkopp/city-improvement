@@ -51,6 +51,7 @@ export const parseGeoJson = data => {
     geometry: {
       type: 'Point',
       coordinates: item.location.coordinates
+      // coordinates: [item.location.coordinates[1], item.location.coordinates[0]]
     },
     properties: { ...item }
   }));
@@ -59,3 +60,32 @@ export const parseGeoJson = data => {
     features
   };
 };
+
+// export const getLocation = _ => {
+//   // e.preventDefault();
+//   if (navigator.geolocation) {
+//     const location_timeout = setTimeout(10000);
+//     navigator.geolocation.getCurrentPosition(
+//       position => {
+//         clearTimeout(location_timeout);
+
+//         const lat = position.coords.latitude;
+//         const lng = position.coords.longitude;
+//         const coords = [];
+//         coords.push(lat, lng);
+//         console.log(coords);
+//         // if (coords) return coords;
+//         this.setState({
+//           location: {
+//             type: 'Point',
+//             coordinates: coords
+//           }
+//         });
+//       },
+//       error => {
+//         clearTimeout(location_timeout);
+//         console.log("this isn't working");
+//       }
+//     );
+//   }
+// };
