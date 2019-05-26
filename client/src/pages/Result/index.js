@@ -16,9 +16,7 @@ class Result extends Component {
 
   getCity = (lat, lng) => {
     axios
-      .get(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyCcpS1KIaglRrIkvMb_Vf-uBYPdMRoFlXw`
-      )
+      .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.GOOGLE_MAPS_KEY}`)
       .then(response => console.log(response.data.results[0].address_components[3].long_name));
   };
 
@@ -45,11 +43,11 @@ class Result extends Component {
   // };
 
   render() {
-    console.log(this.getCity(25.766128199999997, -80.1961674));
-    console.log(this.getCity(40.715, -73.9843));
-    console.log(this.getCity(34.0522, -118.2437));
+    // console.log(this.getCity(25.766128199999997, -80.1961674));
+    // console.log(this.getCity(40.715, -73.9843));
+    // console.log(this.getCity(34.0522, -118.2437));
 
-    console.log(this.getLocation(this.props.issues), 'please');
+    // console.log(this.getLocation(this.props.issues), 'please');
 
     // console.log(this.getLocation(this.props.issues, 'Miami'), "this is what i'm looking at");
 
