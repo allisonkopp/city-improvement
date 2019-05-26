@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { SectionWrapper } from '../../components';
+import { get } from 'lodash';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
+import { SectionWrapper } from '../../components';
+import { cityParser } from '../../utils';
+import { GOOGLE_API_KEY } from '../../config';
 
 class Issue extends Component {
   state = {
@@ -15,9 +19,17 @@ class Issue extends Component {
     video: String()
   };
 
-  addIssue = formData => {
-    axios.post('/issue/create', formData);
-    console.log('this is my form data', formData);
+  addIssue = async formData => {
+    const { history, coords: { longitude: lng, latitude: lat } = {} } = this.props;
+    const { data } = await axios.get(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_API_KEY}`
+    );
+    const region = get(data, ['plus_code', 'compound_code'], String());
+    const city = cityParser(region);
+    const postObj = { ...formData, location: { type: 'Point', coordinates: [lng, lat] }, city };
+    const { error } = await axios.post('/issue/create', postObj);
+    if (error) return history.push('/error');
+    history.push('/results');
   };
 
   handleUpload = file => {
@@ -41,59 +53,26 @@ class Issue extends Component {
 
   handleFormSubmit = e => {
     e.preventDefault();
-    this.getLocation();
-    this.addIssue && this.addIssue(this.state);
+    const { coords } = this.props;
+    this.addIssue(this.state);
     this.setState({
       issue: String(),
-      location: {
-        type: 'Point',
-        coordinates: [Number]
-      },
       comments: String(),
       date: Date(),
       photoUrl: String(),
       videoUrl: String()
     });
-    console.log(this.state, 'this is the state');
-  };
-
-  getLocation = _ => {
-    // e.preventDefault();
-    if (navigator.geolocation) {
-      const location_timeout = setTimeout(10000);
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          clearTimeout(location_timeout);
-
-          const lat = position.coords.latitude;
-          const lng = position.coords.longitude;
-          const coords = [];
-          coords.push(lng, lat);
-          console.log(coords);
-          // if (coords) return coords;
-          this.setState({
-            location: {
-              type: 'Point',
-              coordinates: coords
-            }
-          });
-        },
-        error => {
-          clearTimeout(location_timeout);
-          console.log("this isn't working");
-        }
-      );
-    }
   };
 
   render() {
+    const { issue, comments, date, videoUrl } = this.state;
     return (
       <SectionWrapper>
         <form onSubmit={this.handleFormSubmit}>
           <div>
             <label>Type of Issue:</label>
             {/* <input type="text" onChange={this.handleInputChange('issue')} required /> */}
-            <select name="issues" onBlur={this.handleInputChange('issue')}>
+            <select name="issues" onChange={this.handleInputChange('issue')} value={issue}>
               <option value="Flood">Flood</option>
               <option value="Garbage">Garbage</option>
               <option value="Recycling">Recycling</option>
@@ -106,11 +85,11 @@ class Issue extends Component {
           </div>
           <div>
             <label>Comments:</label>
-            <input type="text" onChange={this.handleInputChange('comments')} />
+            <input type="text" onChange={this.handleInputChange('comments')} value={comments} />
           </div>
           <div>
             <label>Date: </label>
-            <input type="text" onChange={this.handleInputChange('date')} />
+            <input type="text" onChange={this.handleInputChange('date')} value={date} />
           </div>
           <div>
             <div>
@@ -119,15 +98,14 @@ class Issue extends Component {
             </div>
             <div>
               <label>Video: </label>
-              <input type="text" onChange={this.handleInputChange('videoUrl')} />
+              <input type="text" onChange={this.handleInputChange('videoUrl')} value={videoUrl} />
             </div>
             <input type="submit" value="Submit Issue" />
           </div>
         </form>
-        <button onClick={this.getLocation}>GET LOCATION</button>
       </SectionWrapper>
     );
   }
 }
 
-export default Issue;
+export default withRouter(Issue);

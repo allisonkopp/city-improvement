@@ -1,5 +1,28 @@
 export const isLoggedIn = _ => !!sessionStorage.getItem('sessionToken');
 
+export const geolocationOptions = {
+  enableHighAccuracy: true,
+  maximumAge: 10000,
+  timeout: 10000
+};
+
+const getCurrentPosition = _ =>
+  new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(resolve, reject, geolocationOptions));
+
+export const loadPosition = async _ => {
+  try {
+    return await getCurrentPosition();
+  } catch (error) {
+    console.log('error getting position', error);
+    return {
+      coords: {
+        longitude: -80.2044,
+        latitude: 25.8028
+      }
+    };
+  }
+};
+
 export const labels = [
   { issue: 'Flood', color: '#85C1E9' },
   { issue: 'Garbage', color: '#3498DB' },
@@ -12,6 +35,7 @@ export const labels = [
 ];
 
 export const countIssues = (arr, issue) => arr.filter(x => x.issue === issue).length;
+
 //Fix this if there are multiple with same frequency
 export const calculateMax = arr => arr.reduce((x, y) => (x.frequency > y.frequency ? x : y), arr[0]);
 
@@ -64,31 +88,7 @@ export const parseGeoJson = data => {
   };
 };
 
-// export const getLocation = _ => {
-//   // e.preventDefault();
-//   if (navigator.geolocation) {
-//     const location_timeout = setTimeout(10000);
-//     navigator.geolocation.getCurrentPosition(
-//       position => {
-//         clearTimeout(location_timeout);
-
-//         const lat = position.coords.latitude;
-//         const lng = position.coords.longitude;
-//         const coords = [];
-//         coords.push(lat, lng);
-//         console.log(coords);
-//         // if (coords) return coords;
-//         this.setState({
-//           location: {
-//             type: 'Point',
-//             coordinates: coords
-//           }
-//         });
-//       },
-//       error => {
-//         clearTimeout(location_timeout);
-//         console.log("this isn't working");
-//       }
-//     );
-//   }
-// };
+export const cityParser = (string = String()) => {
+  const stringFragment = string.split(',')[0];
+  return stringFragment.slice(stringFragment.indexOf(' ')).trim();
+};

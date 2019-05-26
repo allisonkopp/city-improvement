@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { SectionWrapper } from '../../components';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
-import PopUp from '../PopUp';
 // import InfoWindow from '../InfoWindow';
 
 export class MapContainer extends Component {
@@ -40,7 +39,7 @@ export class MapContainer extends Component {
                 onClick={this.handleToggle(x._id)}
                 position={{ lat: x.location.coordinates[0], lng: x.location.coordinates[1] }}
               >
-                {this.state.isOpen ? <PopUp issue={x.name} close={this.handleToggle(x._id)} /> : null}
+                {/* {this.state.isOpen ? <PopUp issue={x.name} close={this.handleToggle(x._id)} /> : null} */}
               </Marker>
             );
           })}

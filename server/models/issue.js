@@ -19,6 +19,10 @@ const IssueSchema = new Schema({
     }
     // required: true
   },
+  city: {
+    type: String,
+    required: false
+  },
   comments: {
     type: String,
     required: false

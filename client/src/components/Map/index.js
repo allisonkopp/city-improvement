@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
 import './Map.css';
 import { popupRenderer, parseGeoJson } from '../../utils';
-// import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import { MAPBOX_API_KEY } from '../../config';
 
 class Map extends Component {
   state = { issues: parseGeoJson(this.props.issues) };
 
   componentDidMount() {
-    // this.getData();
-
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYW5keXdlaXNzMTk4MiIsImEiOiJIeHpkYVBrIn0.3N03oecxx5TaQz7YLg2HqA';
+    mapboxgl.accessToken = MAPBOX_API_KEY;
     const mapOptions = {
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v9',
@@ -96,19 +94,6 @@ class Map extends Component {
       .addTo(map);
   };
 
-  // fetchPlaces = _ => {
-  //   const map = this.map;
-  //   this.props.issues.forEach(x => {
-  //     const elm = document.createElement('div');
-  //     elm.className = 'mapbox-marker';
-  //     // const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-  //     //   ReactDOMServer.renderToStaticMarkup(<Popup location={location} />)
-  //     // );
-  //     const marker = new mapboxgl.Marker(elm).setLngLat([x.location.coordinates[1], x.location.coordinates[0]]);
-  //     marker.addTo(map);
-  //   });
-  // };
-
   flyTo = ({ longitude, latitude }) =>
     this.map.flyTo({
       center: [longitude, latitude],
@@ -118,9 +103,8 @@ class Map extends Component {
     });
 
   render() {
-    console.log(this.props.issues, 'the props');
-    console.log(this.state.issues, 'the state');
-    // console.log(this.state.parsedData, 'the parsed data please');
+    // console.log(this.props.issues, 'the props');
+    // console.log(this.state.issues, 'the state');
     return (
       <>
         <div id="map" ref={el => (this.mapContainer = el)} />

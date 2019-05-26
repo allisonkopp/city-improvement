@@ -13,6 +13,13 @@ router.get('/', (req, res) => {
   });
 });
 
+router.post('/update/:id', (req, res) => {
+  const { body: issueData, params: { id } = {} } = req;
+  Issue.findByIdAndUpdate(id, issueData, { new: true }, (err, issue) =>
+    err ? res.send({ status: 400, message: 'Error updating issue', error: true }) : res.send({ issue, status: 200 })
+  );
+});
+
 router.get('/google-map', (req, res) => {
   res.send('hello');
 });

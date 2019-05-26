@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { AccessButton } from '..';
 import { isLoggedIn } from '../../utils';
 
@@ -39,4 +39,4 @@ const NavBar = _ => (
   </nav>
 );
 
-export default NavBar;
+export default withRouter(NavBar);
