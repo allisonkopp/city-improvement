@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { SectionWrapper } from '..';
 import mapboxgl from 'mapbox-gl';
 import './Map.css';
-import { popupRenderer } from '../../utils';
+import { popupRenderer, parseGeoJson } from '../../utils';
 // import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 class Map extends Component {
@@ -46,12 +46,24 @@ class Map extends Component {
     map.addControl(nav, 'top-right');
     map.on('load', _ => {
       this.fetchPlaces();
+      map.addSource(
+        'markers',
+        parseGeoJson({
+          type: 'geojson',
+          data: {
+            id: 'markers',
+            type: 'symbol',
+            source: 'markers'
+          }
+        })
+      );
       map.on('click', 'markers', this.handleMarkerClick);
     });
   };
 
   handleMarkerClick = e => {
     const map = this.map;
+
     const { properties, geometry = {} } = e.features[0];
     const coordinates = [...geometry.coordinates];
     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
@@ -63,6 +75,23 @@ class Map extends Component {
       .setHTML(popupRenderer(properties))
       .addTo(map);
   };
+
+  // map.on('click', 'places', function(e) {
+  //   var coordinates = e.features[0].geometry.coordinates.slice();
+  //   var description = e.features[0].properties.description;
+
+  //   // Ensure that if the map is zoomed out such that multiple
+  //   // copies of the feature are visible, the popup appears
+  //   // over the copy being pointed to.
+  //   while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+  //     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+  //   }
+
+  //   new mapboxgl.Popup()
+  //     .setLngLat(coordinates)
+  //     .setHTML(description)
+  //     .addTo(map);
+  // });
 
   fetchPlaces = _ => {
     const map = this.map;
