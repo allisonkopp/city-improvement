@@ -34,7 +34,7 @@ export class MapContainer extends Component {
             lng: -80.1961674
           }}
         >
-          {this.state.issues.map(x => {
+          {this.props.issues.map(x => {
             return (
               <Marker
                 onClick={this.handleToggle(x._id)}

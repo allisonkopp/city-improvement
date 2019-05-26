@@ -14,6 +14,9 @@ const resultRoutes = require('./routes/resultRoutes');
 const cors = require('cors');
 const app = express();
 
+// const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
+// mapboxgl.accessToken = process.env.MAPBOX_KEY;
+
 mongoose.connect('mongodb://localhost:27017/city-improvement');
 const db = mongoose.connection;
 

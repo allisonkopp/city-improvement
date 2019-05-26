@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home, About, Login, Profile, Register, Error, Issue, Result, GoogleMap, HeatMap, Graph } from './pages';
+import {
+  Home,
+  About,
+  Login,
+  Profile,
+  Register,
+  Error,
+  Issue,
+  Result,
+  GoogleMap,
+  MapBox,
+  HeatMap,
+  Graph
+} from './pages';
 import { NavBar, AuthRoute } from './components';
 import axios from 'axios';
 
@@ -32,9 +45,10 @@ class App extends Component {
         <Route exact path="/issue" component={Issue} />
         <Switch>
           <Route exact path="/results" component={Result} />
-          <Route path="/results/google-map" render={_ => <GoogleMap issues={this.state.issues} />} />
+          {/* <Route path="/results/google-map" render={_ => <GoogleMap issues={this.state.issues} />} /> */}
+          <Route path="/results/map" render={_ => <MapBox issues={this.state.issues} />} />
           <Route path="/results/heat-map" component={HeatMap} />
-          <Route epath="/results/graph" render={_ => <Graph issues={this.state.issues} />} />
+          <Route path="/results/graph" render={_ => <Graph issues={this.state.issues} />} />
         </Switch>
         <Route exact path="/error" component={Error} />
         <AuthRoute exact path="/profile" component={Profile} />

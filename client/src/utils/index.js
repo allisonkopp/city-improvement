@@ -36,3 +36,10 @@ export const filterBySeason = (dataArr, season) => {
     else console.log('error');
   });
 };
+
+export const popupRenderer = (props = {}) => `
+  <div>
+    <h2>${props.issue}</h2>
+    <img src=${props.photoUrl} alt='image'>
+  </div>
+`;
