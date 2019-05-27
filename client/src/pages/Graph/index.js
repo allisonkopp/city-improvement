@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { SectionWrapper, GraphComponent, DynamicButton } from '../../components';
-import { labels, calculateMax, createObjArr, filterBySeason } from '../../utils';
+import { labels, calculateMax, createObjArr, filterBySeason, filterByCity } from '../../utils';
 
+const graphOptions = ['Line', 'Bar'];
+const seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
+const cities = ['Miami', 'Los Angeles', 'New York'];
 class Graph extends Component {
   state = {
     data: [],
     activeSeasons: ['Spring'],
+    activeCities: 'Miami',
     activeGraph: 'Line'
   };
 
@@ -27,6 +31,15 @@ class Graph extends Component {
     const { issues } = this.props;
     const data = createObjArr(labels, filterBySeason(issues, newSeasons));
     this.setState({ activeSeasons: newSeasons, data });
+  };
+
+  getCity = city => _ => {
+    const { activeCities } = this.state;
+    const cityActive = activeCities.includes(city);
+    const newCities = cityActive ? activeCities.filter(c => c !== city) : [...activeCities, city];
+    const { issues } = this.props;
+    const data = createObjArr(labels, filterByCity(issues, newCities));
+    this.setState({ activeCities: newCities, data });
   };
 
   switchGraph = graphType => _ => {
@@ -55,29 +68,48 @@ class Graph extends Component {
   };
 
   render() {
-    const { data, activeGraph, activeSeasons } = this.state;
+    const { data, activeGraph, activeSeasons, activeCities } = this.state;
     const getTopIssue = _ => data.length && calculateMax(data).issue;
-    const seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
-    const graphOptions = ['Line', 'Bar'];
+    // const seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
+    // const graphOptions = ['Line', 'Bar'];
     const lineActive = activeGraph === 'Line';
     const barActive = activeGraph === 'Bar';
     return (
       <SectionWrapper>
-        <h1>Regular data set</h1>
-        <p>The top issue is {getTopIssue()}</p>
-        <h3>Graph Options</h3>
-        {graphOptions.map(option => (
-          <DynamicButton key={option} label={option} onClick={this.switchGraph} active={activeGraph === option} />
-        ))}
-        <h1>Data set by season</h1>
-        {seasons.map(season => (
-          <DynamicButton key={season} label={season} onClick={this.getSeason} active={activeSeasons.includes(season)} />
-        ))}
+        <div>
+          <h3>Graph Options</h3>
+          <div>
+            {graphOptions.map(option => (
+              <DynamicButton key={option} label={option} onClick={this.switchGraph} active={activeGraph === option} />
+            ))}
+          </div>
+          <br />
+          <br />
+          <div>
+            {seasons.map(season => (
+              <DynamicButton
+                key={season}
+                label={season}
+                onClick={this.getSeason}
+                active={activeSeasons.includes(season)}
+              />
+            ))}
+          </div>
+          <br />
+          <br />
+          <div>
+            {cities.map(city => (
+              <DynamicButton key={city} label={city} onClick={this.getCity} active={activeCities.includes(city)} />
+            ))}
+          </div>
+        </div>
+        <br />
         <br />
         <div>
           {lineActive && this.renderLineGraph()}
           {barActive && this.renderBarGraph()}
         </div>
+        <p>The top issue is {getTopIssue()}</p>
       </SectionWrapper>
     );
   }

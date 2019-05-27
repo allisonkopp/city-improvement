@@ -24,6 +24,9 @@ const NavBar = _ => (
               <NavLink className="nav-item nav-link" to="/results">
                 Results
               </NavLink>
+              <NavLink className="nav-item nav-link" to="/feed">
+                Feed
+              </NavLink>
             </>
           )}
           <NavLink className="nav-item nav-link" to="/about">

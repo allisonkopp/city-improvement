@@ -9,3 +9,4 @@ export { default as Result } from './Result';
 export { default as HeatMap } from './HeatMap';
 export { default as Graph } from './Graph';
 export { default as MapBox } from './MapBox';
+export { default as Feed } from './Feed';

@@ -20,7 +20,7 @@ class Issue extends Component {
   };
 
   addIssue = async formData => {
-    const { history, coords: { longitude: lng, latitude: lat } = {} } = this.props;
+    const { history, coords: { longitude: lng, latitude: lat } = {}, refetch } = this.props;
     const { data } = await axios.get(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_API_KEY}`
     );
@@ -29,6 +29,7 @@ class Issue extends Component {
     const postObj = { ...formData, location: { type: 'Point', coordinates: [lng, lat] }, city };
     const { error } = await axios.post('/issue/create', postObj);
     if (error) return history.push('/error');
+    refetch && refetch();
     history.push('/results');
   };
 

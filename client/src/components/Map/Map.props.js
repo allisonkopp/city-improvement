@@ -31,7 +31,7 @@ export const generateHeatMapLayer = layerId => ({
   source: layerId,
   maxzoom: 9,
   paint: {
-    'heatmap-weight': ['interpolate', ['linear'], ['get', 'frequency'], 0, 0, 6, 1],
+    'heatmap-weight': ['interpolate', ['linear'], ['get', 'frequency'], 0, 0, 6, 4],
     'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 0, 1, 9, 3],
     'heatmap-color': [
       'interpolate',
@@ -50,8 +50,8 @@ export const generateHeatMapLayer = layerId => ({
       1,
       'rgb(178,24,43)'
     ],
-    // 'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 0, 2, 9, 20],
-    'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 20, 30, 80, 100],
+    'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 0, 2, 9, 20],
+    // 'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 20, 30, 80, 100],
     'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 7, 1, 9, 0]
   }
 });

@@ -10,12 +10,10 @@ const bookRoutes = require('./routes/bookRoutes');
 const issueRoutes = require('./routes/issueRoutes');
 const fileUploadRoutes = require('./routes/fileUploadRoutes');
 const resultRoutes = require('./routes/resultRoutes');
+const feedRoutes = require('./routes/feedRoutes');
 
 const cors = require('cors');
 const app = express();
-
-// const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
-// mapboxgl.accessToken = process.env.MAPBOX_KEY;
 
 mongoose.connect('mongodb://localhost:27017/city-improvement');
 const db = mongoose.connection;
@@ -44,5 +42,6 @@ app.use('/books', bookRoutes);
 app.use('/issue', issueRoutes);
 app.use('/issue', fileUploadRoutes);
 app.use('/results', resultRoutes);
+app.use('/feed', feedRoutes);
 
 app.listen(5000, _ => console.log('Express App listening on port 5000'));

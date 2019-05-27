@@ -1,41 +1,9 @@
 import React, { Component } from 'react';
 import { SectionWrapper } from '../../components';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 class Result extends Component {
   state = { issues: this.props.issues };
-
-  // getCity = (lat, lng) => {
-  //   return axios
-  //     .get(
-  //       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyCcpS1KIaglRrIkvMb_Vf-uBYPdMRoFlXw`
-  //     )
-  //     .then(response => response.data.results[0].address_components[3].long_name);
-  // .then(response => response.data.results)
-  // };
-
-  // getLocation = (dataArr, city) => {
-  //   return dataArr.map(x => {
-  //     const lat = x.location.coordinates[0];
-  //     const lng = x.location.coordinates[1];
-  //     console.log(this.getCity(lat, lng));
-  //     return this.getCity(lat, lng) === city;
-  //   });
-  // };
-
-  // getLocation = dataArr => {
-  //   return dataArr.map(x => {
-  //     const lat = x.location.coordinates[1];
-  //     const lng = x.location.coordinates[0];
-  //     const id = x._id;
-  //     // console.log(id);
-  //     // return this.getCity(lat, lng);
-  //     return axios.post(`/results/update/${id}`, {
-  //       city: this.getCity(lat, lng).toString()
-  //     });
-  //   });
-  // };
 
   // filterByCity = (dataArr, city) => {
   //   // return dataArr.filter(x => city === this.getLocation(x));
@@ -47,12 +15,9 @@ class Result extends Component {
     // console.log(this.getCity(40.715, -73.9843));
     // console.log(this.getCity(34.0522, -118.2437));
 
-    // console.log(this.getLocation(this.props.issues), 'please');
-
     return (
       <SectionWrapper>
         <Link to={'/results/map'}>See Map</Link>
-        <Link to={'/results/heat-map'}>See Heat Map</Link>
         <Link to={'/results/graph'}>See Graph</Link>
       </SectionWrapper>
     );
