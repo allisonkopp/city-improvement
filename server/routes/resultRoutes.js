@@ -13,31 +13,4 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/update/:id', (req, res) => {
-  const { body: issueData, params: { id } = {} } = req;
-  Issue.findByIdAndUpdate(id, issueData, { new: true }, (err, issue) =>
-    err ? res.send({ status: 400, message: 'Error updating issue', error: true }) : res.send({ issue, status: 200 })
-  );
-});
-
-router.get('/google-map', (req, res) => {
-  res.send('hello');
-});
-
-router.get('/heat-map', (req, res) => {
-  res.send('hello');
-});
-
-router.get('/graph', (req, res) => {
-  res.render();
-  // const { session: { userId: user } = {} } = req;
-  // const issues = Issue.find();
-  // issues.exec((err, issues) => {
-  //   if (err) return res.send({ status: 400, message: 'Error getting issues', error: true });
-  //   const parsedIssues = issues.map(x => x._doc);
-  //   console.log(parsedIssues);
-  //   res.send({ issues: parsedIssues, status: 200 });
-  // });
-});
-
 module.exports = router;

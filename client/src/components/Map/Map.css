@@ -11,3 +11,12 @@
   border-radius: 50%;
   cursor: pointer;
 }
+
+.map-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.layer-list {
+  margin-bottom: 50px;
+}

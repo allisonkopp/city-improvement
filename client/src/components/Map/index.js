@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
+import { kebabCase } from 'lodash';
 import './Map.css';
-import { popupRenderer, parseGeoJson } from '../../utils';
+import { popupRenderer, parseGeoJson, groupBy, labels, geolocationOptions } from '../../utils';
+import { DynamicButton } from '..';
+import { generateHeatMapLayer, generateStreetLayer, generateMapOptions } from './Map.props';
 import { MAPBOX_API_KEY } from '../../config';
 
+const layers = labels.map(l => kebabCase(l.issue));
+const mapViews = ['street', 'heat'];
 class Map extends Component {
-  state = { issues: parseGeoJson(this.props.issues) };
+  state = { issues: this.props.issues, visibleLayers: layers, activeMap: 'street' };
 
   componentDidMount() {
+    const { coords: { longitude: lng, latitude: lat } = {} } = this.props;
     mapboxgl.accessToken = MAPBOX_API_KEY;
-    const mapOptions = {
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v9',
-      zoom: 12,
-      center: [-80.19, 25.76]
-    };
-    const geolocationOptions = {
-      enableHighAccuracy: true,
-      maximumAge: 30000,
-      timeout: 27000
-    };
+    const mapOptions = generateMapOptions({ lng, lat });
     this.createMap(mapOptions, geolocationOptions);
   }
 
@@ -27,56 +23,30 @@ class Map extends Component {
     this.map = new mapboxgl.Map(mapOptions);
     const map = this.map;
     const nav = new mapboxgl.NavigationControl();
+    const geolocateControl = new mapboxgl.GeolocateControl({
+      positionOptions: geolocationOptions,
+      trackUserLocation: true
+    });
     map.addControl(nav, 'top-right');
-    const markerData = this.state.issues;
-    console.log(markerData, 'hey this is marker data');
-    map.on('load', _ => {
-      // map.addSource('markers', { type: 'geojson', data: markerData });
-      map.addSource('issueFrequency', {
-        type: 'geojson',
-        data: markerData
-      });
-      // map.addLayer({
-      //   id: 'markers',
-      //   type: 'symbol',
-      //   source: 'markers',
-      //   layout: {
-      //     'icon-image': 'marker-15',
-      //     'icon-size': 1.5,
-      //     'icon-allow-overlap': true
-      //   }
-      // });
-      map.addLayer({
-        id: 'earthquakes-heat',
-        type: 'heatmap',
-        source: 'issueFrequency',
-        maxzoom: 9,
-        paint: {
-          'heatmap-weight': ['interpolate', ['linear'], ['get', 'frequency'], 0, 0, 6, 1],
-          'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 0, 1, 9, 3],
-          'heatmap-color': [
-            'interpolate',
-            ['linear'],
-            ['heatmap-density'],
-            0,
-            'rgba(33,102,172,0)',
-            0.2,
-            'rgb(103,169,207)',
-            0.4,
-            'rgb(209,229,240)',
-            0.6,
-            'rgb(253,219,199)',
-            0.8,
-            'rgb(239,138,98)',
-            1,
-            'rgb(178,24,43)'
-          ],
-          // 'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 0, 2, 9, 20],
-          'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 20, 30, 80, 100],
-          'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 7, 1, 9, 0]
-        }
-      });
-      map.on('click', 'markers', this.handleMarkerClick);
+    map.addControl(geolocateControl);
+    map.on('load', _ => this.addMapLayers());
+    map.on('style.load', _ => this.addMapLayers());
+  };
+
+  addMapLayers = _ => {
+    const map = this.map;
+    const { issues, activeMap } = this.state;
+    const issueCategories = groupBy(issues, 'issue');
+    Object.keys(issueCategories).forEach(key => {
+      const category = kebabCase(key);
+      const heatCategory = `heat-${category}`;
+      const layerId = activeMap === 'street' ? category : heatCategory;
+      if (map.getLayer(layerId)) return;
+      const layer = activeMap === 'street' ? generateStreetLayer(layerId) : generateHeatMapLayer(layerId);
+      const data = parseGeoJson(issueCategories[key]);
+      map.addSource(layerId, { type: 'geojson', data });
+      map.addLayer(layer);
+      map.on('click', category, this.handleMarkerClick);
     });
   };
 
@@ -94,21 +64,62 @@ class Map extends Component {
       .addTo(map);
   };
 
-  flyTo = ({ longitude, latitude }) =>
-    this.map.flyTo({
-      center: [longitude, latitude],
-      bearing: 20,
-      zoom: 12,
-      pitch: 20
+  toggleLayer = layer => _ => {
+    const map = this.map;
+    const { visibleLayers } = this.state;
+    let layers;
+    const heat = `heat-${layer}`;
+    const streetLayer = map.getLayer(layer);
+    const heatLayer = map.getLayer(`heat-${layer}`);
+    if (visibleLayers.includes(layer)) {
+      layers = visibleLayers.filter(l => l !== layer);
+      streetLayer && map.setLayoutProperty(layer, 'visibility', 'none');
+      heatLayer && map.setLayoutProperty(heat, 'visibility', 'none');
+    } else {
+      layers = [...visibleLayers, layer];
+      streetLayer && map.setLayoutProperty(layer, 'visibility', 'visible');
+      heatLayer && map.setLayoutProperty(heat, 'visibility', 'visible');
+    }
+    this.setState({ visibleLayers: layers });
+  };
+
+  toggleMap = type => _ => {
+    const { visibleLayers, activeMap } = this.state;
+    const map = this.map;
+    if (!map || type === activeMap) return;
+    const heatVisibity = type === 'street' ? 'none' : 'visible';
+    const layerVisibility = type === 'street' ? 'visible' : 'none';
+    const mapStyle = type === 'street' ? 'streets-v9' : 'dark-v10';
+    visibleLayers.forEach(layer => {
+      const heatLayer = `heat-${layer}`;
+      map.getLayer(heatLayer) && map.setLayoutProperty(heatLayer, 'visibility', heatVisibity);
+      map.getLayer(layer) && map.setLayoutProperty(layer, 'visibility', layerVisibility);
     });
+    map.setStyle(`mapbox://styles/mapbox/${mapStyle}`);
+    this.setState({ activeMap: type });
+  };
 
   render() {
-    // console.log(this.props.issues, 'the props');
-    // console.log(this.state.issues, 'the state');
+    const { visibleLayers, activeMap } = this.state;
     return (
-      <>
+      <div className="map-container">
+        <div className="layer-list">
+          {layers.map(layer => (
+            <DynamicButton
+              key={layer}
+              active={visibleLayers.includes(layer)}
+              onClick={this.toggleLayer}
+              label={layer}
+            />
+          ))}
+        </div>
+        <div className="layer-list">
+          {mapViews.map(type => (
+            <DynamicButton key={type} active={activeMap === type} onClick={this.toggleMap} label={type} />
+          ))}
+        </div>
         <div id="map" ref={el => (this.mapContainer = el)} />
-      </>
+      </div>
     );
   }
 }

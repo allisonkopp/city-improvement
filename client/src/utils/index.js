@@ -30,8 +30,8 @@ export const labels = [
   { issue: 'Light Outage', color: '#FFC300' },
   { issue: 'Debris', color: '#F39C12' },
   { issue: 'Pothole', color: '#239B56' },
-  { issue: 'Traffic Pattern', color: '#F39C12' },
-  { issue: 'Other', color: '#154360 ' }
+  { issue: 'Traffic Pattern', color: '#F39C12' }
+  // { issue: 'Other', color: '#154360 ' }
 ];
 
 export const countIssues = (arr, issue) => arr.filter(x => x.issue === issue).length;
@@ -39,34 +39,31 @@ export const countIssues = (arr, issue) => arr.filter(x => x.issue === issue).le
 //Fix this if there are multiple with same frequency
 export const calculateMax = arr => arr.reduce((x, y) => (x.frequency > y.frequency ? x : y), arr[0]);
 
-export const createFreqObj = (issue, frequency) => {
-  return {
-    issue: issue,
-    frequency: frequency
-  };
-};
+export const createFreqObj = (issue, frequency) => ({ issue, frequency });
 
 export const createObjArr = (arr, dataArr) => arr.map(x => createFreqObj(x.issue, countIssues(dataArr, x.issue)));
 
 export const getMonth = date => date.slice(date.indexOf('-') + 1, date.indexOf('-') + 3);
 
 //clean this up
-export const filterBySeason = (dataArr, season) => {
-  return dataArr.filter(x => {
-    if (season === 'Spring') return Number(getMonth(x.date)) >= 3 && Number(getMonth(x.date)) <= 5;
-    else if (season === 'Summer') return Number(getMonth(x.date)) >= 6 && Number(getMonth(x.date)) <= 8;
-    else if (season === 'Fall') return Number(getMonth(x.date)) >= 9 && Number(getMonth(x.date)) <= 11;
-    else if (season === 'Winter') return Number(getMonth(x.date)) === 12 || Number(getMonth(x.date)) <= 2;
-    else console.log('error');
+export const filterBySeason = (dataArr = [], seasonsArray = []) =>
+  dataArr.filter(x => {
+    if (seasonsArray.includes('Spring')) return Number(getMonth(x.date)) >= 3 && Number(getMonth(x.date)) <= 5;
+    else if (seasonsArray.includes('Summer')) return Number(getMonth(x.date)) >= 6 && Number(getMonth(x.date)) <= 8;
+    else if (seasonsArray.includes('Fall')) return Number(getMonth(x.date)) >= 9 && Number(getMonth(x.date)) <= 11;
+    else if (seasonsArray.includes('Winter')) return Number(getMonth(x.date)) === 12 || Number(getMonth(x.date)) <= 2;
+    else return x;
   });
-};
 
-export const popupRenderer = (props = {}) => `
-  <div>
+export const popupRenderer = (props = {}) => {
+  const picNode = props.photoUrl ? `<img src=${props.photoUrl} alt='image'>` : '<div />';
+  return `
+    <div>
     <h2>${props.issue}</h2>
-    <img src=${props.photoUrl} alt='image'>
+    ${picNode}
   </div>
-`;
+  `;
+};
 
 export const parseGeoJson = data => {
   if (!data.length) return;
@@ -92,3 +89,11 @@ export const cityParser = (string = String()) => {
   const stringFragment = string.split(',')[0];
   return stringFragment.slice(stringFragment.indexOf(' ')).trim();
 };
+
+export const groupBy = (arrayToGroup = [], name) =>
+  arrayToGroup.reduce((acc, item) => {
+    const type = item[name];
+    acc[type] = acc[type] || [];
+    acc[type].push(item);
+    return acc;
+  }, {});
