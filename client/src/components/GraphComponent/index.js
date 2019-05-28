@@ -1,5 +1,6 @@
 import React from 'react';
 import { LineChart, BarChart, Line, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import './GraphComponent.css';
 
 const GraphComponent = ({ data, xAxisLabel, dataKey, graphType, stroke, fill, type }) => {
   const { Component, Segment } = {
@@ -13,7 +14,7 @@ const GraphComponent = ({ data, xAxisLabel, dataKey, graphType, stroke, fill, ty
     }
   }[graphType];
   return (
-    <>
+    <div className="graph-container">
       <Component
         width={900}
         height={250}
@@ -31,7 +32,7 @@ const GraphComponent = ({ data, xAxisLabel, dataKey, graphType, stroke, fill, ty
         <Legend />
         <Segment dataKey={dataKey} stroke={stroke} fill={fill} type={type} />
       </Component>
-    </>
+    </div>
   );
 };
 

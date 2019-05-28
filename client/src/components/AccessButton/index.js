@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { isLoggedIn } from '../../utils';
+import { NavDropdown } from 'react-bootstrap';
 
 const AccessButton = props => {
   const handleLogout = _ => {
@@ -12,6 +13,12 @@ const AccessButton = props => {
       Logout
     </button>
   ) : (
+    // <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+    //   <NavDropdown.Item>
+    //     <NavLink to="/profile" />
+    //   </NavDropdown.Item>
+    //   <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+    // </NavDropdown>
     <NavLink className="btn btn-info pull-md-right" to="/login">
       Login
     </NavLink>

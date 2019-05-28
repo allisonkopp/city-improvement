@@ -1,7 +1,4 @@
-/* Base Styles */
-
-body {
-}
+/* Base styles */
 
 a:hover {
   color: rgba(49, 176, 213, 0.7);
@@ -107,13 +104,9 @@ a:hover {
   color: initial;
 }
 
-.favorite-book {
-  margin-top: 30px;
-}
-
 /* Media Queries */
 
-@media (min-width: 0) and (max-width: 47em) {
+/* @media (min-width: 0) and (max-width: 47em) {
   .navbar {
     background: #1d2a33;
   }
@@ -134,7 +127,7 @@ a:hover {
   .main {
     padding-top: 6rem;
   }
-}
+} */
 
 .c-modal-cover {
   position: fixed;

@@ -6,6 +6,8 @@ import { SectionWrapper, Modal } from '../../components';
 import { cityParser } from '../../utils';
 import { GOOGLE_API_KEY } from '../../config';
 
+const successMessage = 'Your issue has been successfully submitted.';
+const successBtn = 'See results';
 class Issue extends Component {
   state = {
     issue: String(),
@@ -17,7 +19,8 @@ class Issue extends Component {
     date: Date(),
     photoUrl: String(),
     videoUrl: String(),
-    isOpen: false
+    isOpen: false,
+    modalContent: String()
   };
 
   addIssue = async formData => {
@@ -31,7 +34,7 @@ class Issue extends Component {
     const { error } = await axios.post('/issue/create', postObj);
     if (error) return history.push('/error');
     refetch && refetch();
-    history.push('/results');
+    // history.push('/results');
   };
 
   handleUpload = file => {
@@ -62,23 +65,26 @@ class Issue extends Component {
       comments: String(),
       date: Date(),
       photoUrl: String(),
-      videoUrl: String(),
-      isOpen: true
+      isOpen: true,
+      modalContent: successMessage
     });
     // if (error) return setState({ isOpen: true, modalContent: message });
   };
 
-  toggleModal = _ => this.setState({ isOpen: !this.state.isOpen });
+  toggleModal = _ => {
+    const { history } = this.props;
+    this.setState({ isOpen: !this.state.isOpen });
+    history.push('/results');
+  };
 
   render() {
-    const { issue, comments, date, videoUrl, isOpen } = this.state;
-    const modalContent = 'Hello world';
+    const { issue, comments, date, isOpen, modalContent } = this.state;
+    // const modalContent = 'Hello world';
     return (
       <SectionWrapper>
         <form onSubmit={this.handleFormSubmit}>
           <div>
             <label>Type of Issue:</label>
-            {/* <input type="text" onChange={this.handleInputChange('issue')} required /> */}
             <select name="issues" onChange={this.handleInputChange('issue')} value={issue}>
               <option value="Flood">Flood</option>
               <option value="Garbage">Garbage</option>
@@ -103,14 +109,10 @@ class Issue extends Component {
               <label>Photo: </label>
               <input type="file" onChange={this.handleFile} />
             </div>
-            <div>
-              <label>Video: </label>
-              <input type="text" onChange={this.handleInputChange('videoUrl')} value={videoUrl} />
-            </div>
             <input type="submit" value="Submit Issue" />
           </div>
         </form>
-        <Modal isOpen={isOpen} content={modalContent} toggleModal={this.toggleModal} />
+        <Modal isOpen={isOpen} content={modalContent} toggleModal={this.toggleModal} iconClass={"material-icons icn-person"} iconContent={"wb_sunny"} buttonContent={successBtn} />
       </SectionWrapper>
     );
   }

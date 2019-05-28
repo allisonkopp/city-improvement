@@ -1,5 +1,7 @@
 export const isLoggedIn = _ => !!sessionStorage.getItem('sessionToken');
 
+export const errorBtn = 'Try again';
+
 export const geolocationOptions = {
   enableHighAccuracy: true,
   maximumAge: 10000,

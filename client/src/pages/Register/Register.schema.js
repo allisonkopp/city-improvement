@@ -7,27 +7,31 @@ export const schema = {
       label: 'Name',
       type: 'text',
       id: 'name',
-      placeholder: 'name',
-      required: true
+      placeholder: 'Name',
+      required: true,
+      widget: 'input'
     },
     {
       label: 'Email',
       type: 'email',
       id: 'email',
-      placeholder: 'name@email.com',
-      required: true
+      placeholder: 'E-mail Address',
+      required: true,
+      widget: 'input'
     },
     {
       label: 'Password',
       type: 'password',
       id: 'password',
-      required: true
+      required: true,
+      widget: 'input'
     },
     {
       label: 'Confirm Password',
       type: 'password',
       id: 'confirmPassword',
-      required: true
+      required: true,
+      widget: 'input'
     }
   ]
 };
