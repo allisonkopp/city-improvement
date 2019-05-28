@@ -14,4 +14,24 @@ router.get('/', (req, res) => {
   });
 });
 
+// router.post('/update/:id', (req, res) => {
+//   const { body: issueData, params: { id } = {} } = req;
+//   Issue.findByIdAndUpdate(id, issueData, { new: true }, (err, issue) => {
+//     issue.resolved = !issue.resolved;
+//     err ? res.send({ status: 400, message: 'Error updating issue', error: true }) : res.send({ issue, status: 200 });
+//   });
+//   res.redirect('/');
+// });
+
+router.post('/update/:id', (req, res) => {
+  const { body: issueData, params: { id } = {} } = req;
+  Issue.findByIdAndUpdate(id, issueData, { new: true }, (err, issue) => {
+    console.log(issue);
+    console.log({ issue });
+    issue.resolved = !issue.resolved;
+    console.log(issue.resolved, 'resolved issue from route');
+    err ? res.send({ status: 400, message: 'Error updating issue', error: true }) : res.send({ issue, status: 200 });
+  });
+});
+
 module.exports = router;

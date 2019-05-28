@@ -40,7 +40,8 @@ class App extends Component {
         <Route exact path="/login" component={Login} />
         <Route exact path="/about" component={About} />
         <Route exact path="/issue" render={_ => <Issue coords={coords} refetch={this.refetch} />} />
-        <Route path="/feed" render={_ => <Feed issues={issues} coords={coords} />} />
+        {/* {!!issues.length && <Route path="/feed" render={_ => <Feed issues={issues} coords={coords} />} />} */}
+        <Route path="/feed" component={Feed} />
         <Switch>
           {!!issues.length && <Route exact path="/results" render={_ => <Result issues={issues} />} />}
           {!!issues.length && <Route path="/results/map" render={_ => <MapBox issues={issues} coords={coords} />} />}

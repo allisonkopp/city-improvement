@@ -10,4 +10,4 @@ export { default as MapContainer } from './MapContainer';
 export { default as Map } from './Map';
 export { default as GraphComponent } from './GraphComponent';
 export { default as DynamicButton } from './DynamicButton';
-export { default as Card } from './Card';
+export { default as CardContainer } from './CardContainer';

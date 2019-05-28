@@ -1,6 +1,29 @@
 import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { SectionWrapper, Card } from '../../components';
+import moment from 'moment';
+import { SectionWrapper, CardContainer } from '../../components';
+import './Feed.css';
+
+const FLOOD = require('../../assets/images/flood.png');
+const DEBRIS = require('../../assets/images/debris.png');
+const GARBAGE = require('../../assets/images/garbage.png');
+const LIGHT = require('../../assets/images/light.png');
+const OTHER = require('../../assets/images/other.png');
+const POTHOLE = require('../../assets/images/pothole.jpg');
+const TRAFFIC = require('../../assets/images/traffic.png');
+const RECYCLING = require('../../assets/images/recycling.png');
+
+const defaultPhotos = item => {
+  if (item.issue === 'Flood') return FLOOD;
+  else if (item.issue === 'Garbage') return GARBAGE;
+  else if (item.issue === 'Recycling') return RECYCLING;
+  else if (item.issue === 'Light Outage') return LIGHT;
+  else if (item.issue === 'Debris') return DEBRIS;
+  else if (item.issue === 'Pothole') return POTHOLE;
+  else if (item.issue === 'Traffic Pattern') return TRAFFIC;
+  else if (item.issue === 'Other') return OTHER;
+};
 
 class Feed extends Component {
   state = { data: [] };
@@ -12,19 +35,39 @@ class Feed extends Component {
   getUserData = async _ => {
     const { data = {} } = await axios.get('/feed');
     const issues = Object.values(data.issues);
-    console.log(issues);
-    this.setState({ data: issues });
+    const sortedIssues = issues.sort((x, y) => x.resolved - y.resolved);
+    this.setState({ data: sortedIssues });
   };
+
+  // refetch = _ => this.setState({ refetch: true });
+
+  getStatus = item => (item.resolved ? 'Resolved' : 'Unresolved');
+
+  toggleStatus = id => _ => axios.post(`/feed/update/${id}`, { resolved: true, dateResolved: Date() });
 
   render() {
     const { data } = this.state;
-    console.log(data);
+    // console.log(Date());
+
     return (
       <SectionWrapper>
         <h1>User Feed</h1>
-        <div className="card-deck">
-          {this.state.data.map(item => (
-            <Card issue={item.issue} photoUrl={item.photoUrl} comment={item.comment} />
+
+        <div className="card-deck ">
+          {data.map(item => (
+            <div className="row">
+              <CardContainer
+                issue={item.issue}
+                photoUrl={item.photoUrl || defaultPhotos(item)}
+                comment={item.comments}
+                date={moment(item.date).format('MM/DD/YYYY')}
+                updatedDate={moment(item.dateResolved).format('MM/DD/YYYY')}
+                dateDiff={moment(item.dateResolved).diff(moment(item.date))}
+                status={this.getStatus(item)}
+                toggleStatus={this.toggleStatus(item._id)}
+                resolved={item.resolved}
+              />
+            </div>
           ))}
         </div>
       </SectionWrapper>
@@ -32,4 +75,4 @@ class Feed extends Component {
   }
 }
 
-export default Feed;
+export default withRouter(Feed);

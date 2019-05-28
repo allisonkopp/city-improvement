@@ -39,6 +39,13 @@ const IssueSchema = new Schema({
     type: String,
     required: false
   },
+  resolved: {
+    type: Boolean,
+    default: false
+  },
+  dateResolved: {
+    type: Date
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

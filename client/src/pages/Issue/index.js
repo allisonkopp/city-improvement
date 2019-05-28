@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { get } from 'lodash';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-import { SectionWrapper } from '../../components';
+import { SectionWrapper, Modal } from '../../components';
 import { cityParser } from '../../utils';
 import { GOOGLE_API_KEY } from '../../config';
 
@@ -16,7 +16,8 @@ class Issue extends Component {
     comments: String(),
     date: Date(),
     photoUrl: String(),
-    video: String()
+    videoUrl: String(),
+    isOpen: false
   };
 
   addIssue = async formData => {
@@ -61,12 +62,17 @@ class Issue extends Component {
       comments: String(),
       date: Date(),
       photoUrl: String(),
-      videoUrl: String()
+      videoUrl: String(),
+      isOpen: true
     });
+    // if (error) return setState({ isOpen: true, modalContent: message });
   };
 
+  toggleModal = _ => this.setState({ isOpen: !this.state.isOpen });
+
   render() {
-    const { issue, comments, date, videoUrl } = this.state;
+    const { issue, comments, date, videoUrl, isOpen } = this.state;
+    const modalContent = 'Hello world';
     return (
       <SectionWrapper>
         <form onSubmit={this.handleFormSubmit}>
@@ -104,6 +110,7 @@ class Issue extends Component {
             <input type="submit" value="Submit Issue" />
           </div>
         </form>
+        <Modal isOpen={isOpen} content={modalContent} toggleModal={this.toggleModal} />
       </SectionWrapper>
     );
   }
