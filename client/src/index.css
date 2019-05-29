@@ -23,7 +23,16 @@ a:hover {
   color: rgba(255, 255, 255, 0.6);
 }
 
+.center-element {
+  display: flex;
+  justify-content: center;
+}
+
 /* Modifier Styles */
+
+nav > div > div {
+  align-items: center;
+}
 
 .nav-items .nav-link {
   margin: 0 1rem;
@@ -43,6 +52,10 @@ a:hover {
   font-size: 0.88rem;
   vertical-align: top;
   margin: 3px 0 0 4px;
+}
+
+.logo {
+  height: 3rem;
 }
 
 /* Button Styles */
@@ -69,6 +82,9 @@ a:hover {
 .active,
 .btn {
   transition: 0.4s;
+}
+.btn:focus {
+  outline: 0 none;
 }
 
 /* Icon Styles */
@@ -104,9 +120,9 @@ a:hover {
   color: initial;
 }
 
-/* Media Queries */
+/*Media Queries*/
 
-/* @media (min-width: 0) and (max-width: 47em) {
+@media (min-width: 0) and (max-width: 47em) {
   .navbar {
     background: #1d2a33;
   }
@@ -127,7 +143,7 @@ a:hover {
   .main {
     padding-top: 6rem;
   }
-} */
+}
 
 .c-modal-cover {
   position: fixed;

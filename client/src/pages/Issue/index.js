@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { get } from 'lodash';
 import axios from 'axios';
+import moment from 'moment';
 import { withRouter } from 'react-router-dom';
-import { SectionWrapper, Modal } from '../../components';
-import { cityParser } from '../../utils';
+import { SectionWrapper, Modal, Form } from '../../components';
+import { cityParser, parseDate } from '../../utils';
 import { GOOGLE_API_KEY } from '../../config';
+import './Issue.css';
+
+// import { schema } from './Issue.schema';
 
 const successMessage = 'Your issue has been successfully submitted.';
 const successBtn = 'See results';
@@ -34,11 +38,9 @@ class Issue extends Component {
     const { error } = await axios.post('/issue/create', postObj);
     if (error) return history.push('/error');
     refetch && refetch();
-    // history.push('/results');
   };
 
   handleUpload = file => {
-    console.log('file', file);
     axios
       .post('/issue/upload', file)
       .then(response => {
@@ -52,6 +54,7 @@ class Issue extends Component {
     const uploadData = new FormData();
     uploadData.append('imageUrl', e.target.files[0]);
     await this.handleUpload(uploadData);
+    // document.querySelector('.custom-file-input').setAttribute('style', 'opacity:1');
   };
 
   handleInputChange = field => e => this.setState({ [field]: e.target.value });
@@ -68,7 +71,6 @@ class Issue extends Component {
       isOpen: true,
       modalContent: successMessage
     });
-    // if (error) return setState({ isOpen: true, modalContent: message });
   };
 
   toggleModal = _ => {
@@ -79,13 +81,17 @@ class Issue extends Component {
 
   render() {
     const { issue, comments, date, isOpen, modalContent } = this.state;
-    // const modalContent = 'Hello world';
+
+    console.log(moment(Date()).format('MMMM Do YYYY, h:mm:ss A'));
+
     return (
-      <SectionWrapper>
-        <form onSubmit={this.handleFormSubmit}>
-          <div>
+      <SectionWrapper columnDefs="col form-wrapper ">
+        {/* <Form schema={schema} handleSubmit={this.handleFormSubmit} /> */}
+        <form onSubmit={this.handleFormSubmit} className="formContainer form-control">
+          <h1 className="display-4 m-b-2 center-element">Report your issue</h1>
+          <div className="form-group">
             <label>Type of Issue:</label>
-            <select name="issues" onChange={this.handleInputChange('issue')} value={issue}>
+            <select className="form-control" name="issues" onChange={this.handleInputChange('issue')} value={issue}>
               <option value="Flood">Flood</option>
               <option value="Garbage">Garbage</option>
               <option value="Recycling">Recycling</option>
@@ -96,23 +102,52 @@ class Issue extends Component {
               <option value="Other">Other</option>
             </select>
           </div>
-          <div>
-            <label>Comments:</label>
-            <input type="text" onChange={this.handleInputChange('comments')} value={comments} />
-          </div>
-          <div>
+          <div className="form-group">
             <label>Date: </label>
-            <input type="text" onChange={this.handleInputChange('date')} value={date} />
+            <input
+              className="form-control"
+              type="text"
+              onChange={this.handleInputChange('date')}
+              value={parseDate(Date())}
+            />
           </div>
-          <div>
-            <div>
-              <label>Photo: </label>
-              <input type="file" onChange={this.handleFile} />
+
+          <div className="form-group">
+            <label>Photo:</label>
+            <div className="custom-file">
+              <input className="custom-file-input" type="file" onChange={this.handleFile} />
+              <span className="file-info">Upload a file</span>
             </div>
-            <input type="submit" value="Submit Issue" />
+          </div>
+
+          {/* <img src={photoUrl} alt="" height="100vh" /> */}
+
+          <div className="form-group">
+            <label>Comments:</label>
+            <br />
+            <textarea
+              className="form-control"
+              type="text"
+              onChange={this.handleInputChange('comments')}
+              value={comments}
+              rows="5"
+            />
+          </div>
+          <div className="center-element">
+            <button className="btn btn-success">
+              Submit Issue
+              {/* <input type="submit" value="Submit Issue" /> */}
+            </button>
           </div>
         </form>
-        <Modal isOpen={isOpen} content={modalContent} toggleModal={this.toggleModal} iconClass={"material-icons icn-person"} iconContent={"wb_sunny"} buttonContent={successBtn} />
+        <Modal
+          isOpen={isOpen}
+          content={modalContent}
+          toggleModal={this.toggleModal}
+          iconClass={'material-icons icn-person'}
+          iconContent={'wb_sunny'}
+          buttonContent={successBtn}
+        />
       </SectionWrapper>
     );
   }

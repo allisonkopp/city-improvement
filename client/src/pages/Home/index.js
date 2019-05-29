@@ -7,9 +7,14 @@ const Home = _ => (
     <div>
       <h1 className="display-3">City Improvement</h1>
       <p className="lead">Help to improve your city!</p>
-      <NavLink className="btn btn-info-outline btn-lg" to="/register">
-        Get Started
-      </NavLink>
+      <div>
+        <NavLink className="btn btn-primary-outline btn-lg" to="/register">
+          Get Started
+        </NavLink>
+        <NavLink className="btn btn-primary-outline btn-lg" to="/about">
+          Learn More
+        </NavLink>
+      </div>
     </div>
   </div>
 );

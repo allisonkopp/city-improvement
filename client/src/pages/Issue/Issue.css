@@ -1,0 +1,45 @@
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.formContainer {
+  width: 50vw;
+}
+
+.center-element {
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .formContainer {
+    width: 100%;
+  }
+  .display-4 {
+    font-size: 2rem;
+  }
+}
+
+.custom-file {
+  /* margin: 3em auto; */
+  /* max-width: 300px; */
+  width: 100%;
+  border: 1px solid #dfdfdf;
+  border-radius: 5px;
+}
+
+input[type='file'] {
+  opacity: 0;
+  width: 100%;
+}
+
+.browse-btn {
+  background: grey;
+  color: #fff;
+  min-height: 35px;
+  padding: 10px;
+  border: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}

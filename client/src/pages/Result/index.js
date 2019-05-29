@@ -79,21 +79,11 @@ class Result extends Component {
     const barActive = activeGraph === 'Bar';
     return (
       <SectionWrapper>
-        <div className="container">
-          <div className="row">
-            <div className="col">
+        <SectionWrapper>
+          <div>
+            <div className="graph-header">
               <div>
-                {lineActive && this.renderLineGraph()}
-                {barActive && this.renderBarGraph()}
-              </div>
-              <p>The top issue is {getTopIssue()}</p>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col">
-              <div>
-                <h1>Results</h1>
-                <h3>Type of Chart:</h3>
+                <h3>Issue Frequency</h3>
               </div>
               <div>
                 {graphOptions.map(option => (
@@ -105,26 +95,38 @@ class Result extends Component {
                   />
                 ))}
               </div>
-
-              <div>
-                {seasons.map(season => (
-                  <DynamicButton
-                    key={season}
-                    label={season}
-                    onClick={this.getSeason}
-                    active={activeSeasons.includes(season)}
-                  />
-                ))}
-              </div>
-
-              <div>
-                {cities.map(city => (
-                  <DynamicButton key={city} label={city} onClick={this.getCity} active={activeCities.includes(city)} />
-                ))}
-              </div>
+            </div>
+            <div>
+              {lineActive && this.renderLineGraph()}
+              {barActive && this.renderBarGraph()}
             </div>
           </div>
-        </div>
+        </SectionWrapper>
+        <SectionWrapper>
+          <div>
+            <h1>Results</h1>
+            <h3>Type of Chart:</h3>
+          </div>
+
+          <div>
+            {seasons.map(season => (
+              <DynamicButton
+                key={season}
+                label={season}
+                onClick={this.getSeason}
+                active={activeSeasons.includes(season)}
+              />
+            ))}
+          </div>
+
+          <div>
+            {cities.map(city => (
+              <DynamicButton key={city} label={city} onClick={this.getCity} active={activeCities.includes(city)} />
+            ))}
+          </div>
+
+          <p>The top issue is {getTopIssue()}</p>
+        </SectionWrapper>
       </SectionWrapper>
     );
   }

@@ -1,9 +1,25 @@
+.graph-header {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.graph-header h3 {
+  margin: 1rem 1rem 1rem 5rem;
+  font-weight: 300;
+}
+
+.graph-header button {
+  margin: 1rem;
+}
+
 .wrapper {
   display: flex;
   align-items: stretch;
 }
 
-#sidebar {
+/* #sidebar {
   min-width: 250px;
   max-width: 250px;
   min-height: 100vh;
@@ -20,4 +36,4 @@
   #sidebar.active {
     margin-left: 0;
   }
-}
+} */

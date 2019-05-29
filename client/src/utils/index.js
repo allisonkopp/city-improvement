@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const isLoggedIn = _ => !!sessionStorage.getItem('sessionToken');
 
 export const errorBtn = 'Try again';
@@ -112,3 +114,5 @@ export const groupBy = (arrayToGroup = [], name) =>
     acc[type].push(item);
     return acc;
   }, {});
+
+export const parseDate = date => moment(date).format('MMMM Do YYYY, h:mm:ss A');
