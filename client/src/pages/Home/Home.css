@@ -1,4 +1,38 @@
+/* 
+
+@media screen and (min-device-width: 768px) {
+  .text-container {
+    background-color: rgba(255, 255, 255, 0.4);
+    padding: 5rem;
+    border: 2px solid black;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+  }
+} */
+
 .text-container {
-  background: url('../../assets/images/city.jpeg') no-repeat;
-  background-size: cover;
+  display: flex;
+  flex-direction: column;
+}
+
+.text-container h1 {
+  font-weight: 800;
+}
+
+.text-container p {
+  font-weight: 400;
+}
+
+.home-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: space-evenly;
 }

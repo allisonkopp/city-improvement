@@ -22,17 +22,19 @@ class Register extends Component {
   render() {
     const { isOpen, modalContent } = this.state;
     return (
-      <SectionWrapper columnDefs="col-md-6 col-md-offset-3">
-        <Form schema={schema} handleSubmit={this.handleRegister} />
-        <Modal
-          isOpen={isOpen}
-          content={modalContent}
-          toggleModal={this.toggleModal}
-          iconClass={'icn-person material-icons'}
-          iconContent={'error'}
-          buttonContent={errorBtn}
-        />
-      </SectionWrapper>
+      <div className="main-background">
+        <SectionWrapper columnDefs="col-md-6 col-md-offset-3">
+          <Form schema={schema} handleSubmit={this.handleRegister} />
+          <Modal
+            isOpen={isOpen}
+            content={modalContent}
+            toggleModal={this.toggleModal}
+            iconClass={'icn-person material-icons'}
+            iconContent={'error'}
+            buttonContent={errorBtn}
+          />
+        </SectionWrapper>
+      </div>
     );
   }
 }

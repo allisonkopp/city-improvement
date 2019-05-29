@@ -9,6 +9,8 @@ a:hover {
 .navbar {
   padding: 1rem 0;
   background: rgba(0, 0, 0, 0.25);
+  /* background: rgba(128, 128, 128, 0.8); */
+  /* background: rgba(220, 220, 220); */
 }
 .lead {
   margin-bottom: 2.5rem;
@@ -26,6 +28,11 @@ a:hover {
 .center-element {
   display: flex;
   justify-content: center;
+}
+
+.main-background {
+  background: url('./assets/images/city.jpeg') no-repeat;
+  background-size: cover;
 }
 
 /* Modifier Styles */
@@ -228,7 +235,8 @@ nav > div > div {
   }
   .nav-items {
     margin-right: auto;
-    margin-left: auto;
+    padding-left: 3rem;
+    /* margin-left: auto; */
   }
   .main {
     padding-top: 8rem;

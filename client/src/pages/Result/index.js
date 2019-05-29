@@ -78,7 +78,7 @@ class Result extends Component {
     const lineActive = activeGraph === 'Line';
     const barActive = activeGraph === 'Bar';
     return (
-      <SectionWrapper>
+      <>
         <SectionWrapper>
           <div>
             <div className="graph-header">
@@ -127,7 +127,7 @@ class Result extends Component {
 
           <p>The top issue is {getTopIssue()}</p>
         </SectionWrapper>
-      </SectionWrapper>
+      </>
     );
   }
 }

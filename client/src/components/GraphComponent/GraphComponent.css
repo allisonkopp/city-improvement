@@ -2,3 +2,14 @@
   width: 100%;
   height: 50vh;
 }
+
+.custom-tooltip {
+  width: 12rem;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid grey;
+  padding: 0.5rem;
+}
+
+.label {
+  color: black;
+}

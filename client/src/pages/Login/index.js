@@ -14,23 +14,25 @@ class Login extends Component {
     const { data: { error, session, message } = {} } = await axios.post('/login', formData, { headers });
     if (error) return this.setState({ isOpen: true, modalContent: message });
     sessionStorage.setItem('sessionToken', session.userId);
-    this.props.history.push('/profile');
+    this.props.history.push('/issue');
   };
 
   render() {
     const { isOpen, modalContent } = this.state;
     return (
-      <SectionWrapper columnDefs="col-md-6 col-md-offset-3">
-        <Form schema={schema} handleSubmit={this.handleLogin} />
-        <Modal
-          isOpen={isOpen}
-          content={modalContent}
-          toggleModal={this.toggleModal}
-          iconClass={'icn-person material-icons'}
-          iconContent={'error'}
-          buttonContent={errorBtn}
-        />
-      </SectionWrapper>
+      <div className="main-background">
+        <SectionWrapper columnDefs="col-md-6 col-md-offset-3">
+          <Form schema={schema} handleSubmit={this.handleLogin} />
+          <Modal
+            isOpen={isOpen}
+            content={modalContent}
+            toggleModal={this.toggleModal}
+            iconClass={'icn-person material-icons'}
+            iconContent={'error'}
+            buttonContent={errorBtn}
+          />
+        </SectionWrapper>
+      </div>
     );
   }
 }

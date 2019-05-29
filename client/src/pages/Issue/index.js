@@ -134,7 +134,7 @@ class Issue extends Component {
             />
           </div>
           <div className="center-element">
-            <button className="btn btn-success">
+            <button className="btn btn-primary">
               Submit Issue
               {/* <input type="submit" value="Submit Issue" /> */}
             </button>

@@ -5,8 +5,9 @@ import { isLoggedIn } from '../../utils';
 
 const LOGO = require('../../assets/images/city-logo.png');
 
-const NavBar = _ => (
+const NavBar = navColor => (
   <nav className="navbar navbar-fixed-top navbar-dark bg-inverse">
+    {/* <nav className={navColor}> */}
     <div className="navbar-nav collapse navbar-toggleable-sm">
       <div className="container">
         <NavLink className="navbar-brand" to="/">
@@ -20,7 +21,7 @@ const NavBar = _ => (
               <NavLink className="nav-item nav-link" to="/issue">
                 Form
               </NavLink>
-              <NavLink className="nav-item nav-link" to="/results">
+              <NavLink className="nav-item nav-link" to="/results/map">
                 Map
               </NavLink>
               <NavLink className="nav-item nav-link" to="/results">
@@ -31,9 +32,6 @@ const NavBar = _ => (
               </NavLink>
               <NavLink className="nav-item nav-link" to="/about">
                 About
-              </NavLink>
-              <NavLink className="nav-item nav-link" to="/profile">
-                My Profile
               </NavLink>
             </>
           )}

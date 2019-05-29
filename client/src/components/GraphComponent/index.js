@@ -11,7 +11,12 @@ import {
   CartesianGrid,
   ResponsiveContainer
 } from 'recharts';
+
 import './GraphComponent.css';
+
+import { CustomizedAxisTick } from './CustomizedAxisTick';
+// import { CustomizedLabel } from './CustomizedLabel';
+import { CustomTooltip } from './CustomTooltip';
 
 const GraphComponent = ({ data, xAxisLabel, dataKey, graphType, stroke, fill, type }) => {
   const { Component, Segment } = {
@@ -37,10 +42,10 @@ const GraphComponent = ({ data, xAxisLabel, dataKey, graphType, stroke, fill, ty
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey={xAxisLabel} />
-          <YAxis type="number" domain={[0, 'dataMax']} allowDecimals={false} />
-          <Tooltip active />
-          <Legend />
+          <XAxis dataKey={xAxisLabel} height={60} tick={<CustomizedAxisTick />} />
+          <YAxis type="number" domain={[0, 'dataMax']} allowDecimals={false}  />
+          <Tooltip content={<CustomTooltip />} active />
+          {/* <Legend /> */}
           <Segment dataKey={dataKey} stroke={stroke} fill={fill} type={type} />
         </Component>
       </ResponsiveContainer>
@@ -50,39 +55,5 @@ const GraphComponent = ({ data, xAxisLabel, dataKey, graphType, stroke, fill, ty
 
 export default GraphComponent;
 
-// const getIntroOfPage = label => {
-//   if (label === 'Page A') {
-//     return "Page A is about men's clothing";
-//   }
-//   if (label === 'Page B') {
-//     return "Page B is about women's dress";
-//   }
-//   if (label === 'Page C') {
-//     return "Page C is about women's bag";
-//   }
-//   if (label === 'Page D') {
-//     return 'Page D is about household goods';
-//   }
-//   if (label === 'Page E') {
-//     return 'Page E is about food';
-//   }
-//   if (label === 'Page F') {
-//     return 'Page F is about baby food';
-//   }
-// };
 
-// const CustomTooltip = ({ active, payload, label }) => {
-//   if (active) {
-//     return (
-//       <div className="custom-tooltip">
-//         <p className="label">{`${label} : ${payload[0].value}`}</p>
-//         <p className="intro">{getIntroOfPage(label)}</p>
-//         <p className="desc">Anything you want can be displayed here.</p>
-//       </div>
-//     );
-//   }
-
-//   return null;
-// };
-
-// <Tooltip content={<CustomTooltip />} />
+// label={{ value: 'Frequency of Issue', angle: -90, position: 'insideLeft' }}
