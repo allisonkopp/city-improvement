@@ -104,6 +104,12 @@ class Map extends Component {
     return (
       <div className="map-container">
         <div className="layer-list">
+          {mapViews.map(type => (
+            <DynamicButton key={type} active={activeMap === type} onClick={this.toggleMap} label={type} />
+          ))}
+        </div>
+        <div id="map" ref={el => (this.mapContainer = el)} />
+        <div className="layer-list">
           {layers.map(layer => (
             <DynamicButton
               key={layer}
@@ -113,12 +119,6 @@ class Map extends Component {
             />
           ))}
         </div>
-        <div className="layer-list">
-          {mapViews.map(type => (
-            <DynamicButton key={type} active={activeMap === type} onClick={this.toggleMap} label={type} />
-          ))}
-        </div>
-        <div id="map" ref={el => (this.mapContainer = el)} />
       </div>
     );
   }

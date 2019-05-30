@@ -1,4 +1,5 @@
 import { getDate } from '../../utils';
+import moment from 'moment';
 
 export const schema = {
   id: 'issueForm',
@@ -22,11 +23,11 @@ export const schema = {
     },
     {
       label: 'Date',
-      type: 'text',
+      type: 'date',
       id: 'date',
       widget: 'input',
       readOnly: true,
-      placeholder: getDate
+      defaultValue: moment().format('YYYY-MM-DD')
     },
     {
       label: 'Photo',

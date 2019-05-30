@@ -49,7 +49,7 @@ export const createObjArr = (arr, dataArr) => arr.map(x => createFreqObj(x.issue
 
 export const getMonth = date => date.slice(date.indexOf('-') + 1, date.indexOf('-') + 3);
 
-export const getDate = moment().format('MMMM Do YYYY, h:mm:ss A');
+// export const getDate = moment().format('YYY-MM-DD, h:mm:ss A');
 
 //clean this up
 export const filterBySeason = (dataArr = [], seasonsArray = []) =>

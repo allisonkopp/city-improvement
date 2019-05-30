@@ -25,7 +25,7 @@ const Input = ({
       checked={isChecked}
       defaultChecked={defaultChecked}
       placeholder={placeholder}
-      value={type !== 'file' ? value : String() || Date()}
+      value={value || defaultValue}
       onChange={e => onChange({ id, value: e.target.value })}
       defaultValue={defaultValue}
       readOnly={readOnly}

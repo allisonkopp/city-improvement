@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { SectionWrapper, Map } from '../../components';
 // import Map from '../../components/Map/index.jsx';
 

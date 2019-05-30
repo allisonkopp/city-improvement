@@ -5,14 +5,14 @@ export const generateMapOptions = ({ lat, lng }) => ({
   center: [lng || -80.19, lat || 25.76]
 });
 const icons = {
-  debris: 'restaurant-15',
-  flood: 'bar-15',
-  'light-outage': 'airfield-15',
-  pothole: 'aquarium-15',
-  recycling: 'bakery-15',
-  'traffic-pattern': 'bank-15',
-  garbage: 'dog-park-15',
-  other: 'golf-15'
+  debris: 'natural-11',
+  flood: 'aquarium-11',
+  'light-outage': 'lighthouse-11',
+  pothole: 'car-11',
+  recycling: 'recycling-11',
+  'traffic-pattern': 'bicycle-share-11',
+  garbage: 'waste-basket-11',
+  other: 'circle-stroked-11'
 };
 
 export const generateStreetLayer = layerId => ({

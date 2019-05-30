@@ -51,7 +51,6 @@ class Issue extends Component {
 
     return (
       <SectionWrapper columnDefs="col form-wrapper ">
-        {/* <h1>Report your issue</h1> */}
         <Form schema={schema} handleSubmit={this.addIssue} />
         <Modal
           isOpen={isOpen}
