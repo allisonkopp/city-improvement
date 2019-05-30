@@ -13,6 +13,8 @@ const feedRoutes = require('./routes/feedRoutes');
 const path = require('path');
 const cors = require('cors');
 const app = express();
+const PORT = process.env.PORT || 5000;
+console.log(process.env, 999);
 
 mongoose.connect(process.env.DB);
 const db = mongoose.connection;
@@ -56,4 +58,4 @@ app.use('/issue', fileUploadRoutes);
 app.use('/results', resultRoutes);
 app.use('/feed', feedRoutes);
 
-app.listen(5000, _ => console.log('Express App listening on port 5000'));
+app.listen(PORT, _ => console.log('Express App listening on port 5000'));
