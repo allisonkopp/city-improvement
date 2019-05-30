@@ -109,6 +109,7 @@ class Issue extends Component {
               type="text"
               onChange={this.handleInputChange('date')}
               value={parseDate(Date())}
+              readOnly
             />
           </div>
 
@@ -135,7 +136,7 @@ class Issue extends Component {
           </div>
           <div className="center-element">
             <button className="btn btn-primary">
-              Submit Issue
+              Let's fix it
               {/* <input type="submit" value="Submit Issue" /> */}
             </button>
           </div>

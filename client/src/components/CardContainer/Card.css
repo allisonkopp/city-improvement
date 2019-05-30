@@ -1,4 +1,19 @@
+.indv-card {
+  padding-bottom: 1rem;
+}
+
+.view {
+  text-align: center;
+}
+
+.card-title {
+  padding-top: 1rem;
+}
+
+.card-body {
+  padding: 0 0.5rem;
+}
+
 .card {
-  /* width: 33%; */
-  /* display: flex; */
+  background-color: rbga(188, 188, 188, 0.6) important!;
 }

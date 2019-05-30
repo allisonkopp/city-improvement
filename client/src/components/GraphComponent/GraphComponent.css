@@ -13,3 +13,9 @@
 .label {
   color: black;
 }
+
+.toggle-container {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 1rem;
+}

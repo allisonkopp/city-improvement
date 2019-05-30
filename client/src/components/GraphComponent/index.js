@@ -1,16 +1,5 @@
 import React from 'react';
-import {
-  LineChart,
-  BarChart,
-  Line,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  CartesianGrid,
-  ResponsiveContainer
-} from 'recharts';
+import { AreaChart, BarChart, Area, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
 
 import './GraphComponent.css';
 
@@ -20,9 +9,9 @@ import { CustomTooltip } from './CustomTooltip';
 
 const GraphComponent = ({ data, xAxisLabel, dataKey, graphType, stroke, fill, type }) => {
   const { Component, Segment } = {
-    line: {
-      Component: LineChart,
-      Segment: Line
+    area: {
+      Component: AreaChart,
+      Segment: Area
     },
     bar: {
       Component: BarChart,
@@ -42,8 +31,8 @@ const GraphComponent = ({ data, xAxisLabel, dataKey, graphType, stroke, fill, ty
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey={xAxisLabel} height={60} tick={<CustomizedAxisTick />} />
-          <YAxis type="number" domain={[0, 'dataMax']} allowDecimals={false}  />
+          <XAxis dataKey={xAxisLabel} height={60} />
+          <YAxis type="number" domain={[0, 'dataMax + 1']} allowDecimals={false} />
           <Tooltip content={<CustomTooltip />} active />
           {/* <Legend /> */}
           <Segment dataKey={dataKey} stroke={stroke} fill={fill} type={type} />
@@ -55,5 +44,6 @@ const GraphComponent = ({ data, xAxisLabel, dataKey, graphType, stroke, fill, ty
 
 export default GraphComponent;
 
-
 // label={{ value: 'Frequency of Issue', angle: -90, position: 'insideLeft' }}
+
+// tick = {< CustomizedAxisTick />}

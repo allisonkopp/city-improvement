@@ -1,3 +1,16 @@
-.card-deck {
+.feed-background {
+  /* background-image: url('../../assets/images/texture.jpg');
+  background-size: cover; */
+  background-color: rgba(188, 188, 188, 0.5);
+}
+
+.card-group {
   width: 100%;
+  /* border-spacing: 0.25rem 0 important!; */
+}
+
+@media (min-width: 544px) {
+  .card-deck {
+    border-spacing: 0 important!;
+  }
 }

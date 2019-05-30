@@ -3,6 +3,8 @@ import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import { SectionWrapper, CardContainer } from '../../components';
+import { parseDate } from '../../utils';
+
 import './Feed.css';
 
 const FLOOD = require('../../assets/images/flood.png');
@@ -47,30 +49,27 @@ class Feed extends Component {
 
   render() {
     const { data } = this.state;
-    // console.log(Date());
 
     return (
-      <SectionWrapper>
-        <h1>User Feed</h1>
-
-        <div className="card-deck ">
+      <div className="feed-background">
+        <SectionWrapper colDefs="card-group">
           {data.map(item => (
-            <div className="row">
+            <div>
               <CardContainer
                 issue={item.issue}
                 photoUrl={item.photoUrl || defaultPhotos(item)}
                 comment={item.comments}
                 date={moment(item.date).format('MM/DD/YYYY')}
                 updatedDate={moment(item.dateResolved).format('MM/DD/YYYY')}
-                dateDiff={moment(item.dateResolved).diff(moment(item.date))}
+                dateDiff={moment(item.dateResolved).diff(moment(item.date), 'days')}
                 status={this.getStatus(item)}
                 toggleStatus={this.toggleStatus(item._id)}
                 resolved={item.resolved}
               />
             </div>
           ))}
-        </div>
-      </SectionWrapper>
+        </SectionWrapper>
+      </div>
     );
   }
 }
