@@ -2,7 +2,7 @@ export const generateMapOptions = ({ lat, lng }) => ({
   container: 'map',
   style: 'mapbox://styles/mapbox/streets-v9',
   zoom: 12,
-  center: [lng || -80.19, lat || 25.76]
+  center: [lng || -80.196, lat || 25.766]
 });
 const icons = {
   debris: 'natural-11',

@@ -7,7 +7,7 @@ class Form extends Component {
     super(props);
     const { schema: { fields = [] } = {} } = props;
     this.state = fields.reduce((acc, field) => {
-      acc[field.id] = String();
+      acc[field.id] = field.defaultValue || String();
       return acc;
     }, {});
   }

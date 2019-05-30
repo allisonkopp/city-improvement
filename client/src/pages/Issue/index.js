@@ -32,8 +32,9 @@ class Issue extends Component {
     const region = get(data, ['plus_code', 'compound_code'], String());
     const city = cityParser(region);
     const postObj = { ...formData, location: { type: 'Point', coordinates: [lng, lat] }, city };
-    const { error } = await axios.post('/issue/create', postObj);
+    const { error, message } = await axios.post('/issue/create', postObj);
     if (error) return history.push('/error');
+    // if (error) return this.setState({ isOpen: true, modalContent: message });
     this.setState({ isOpen: true });
     refetch && refetch();
   };
@@ -48,6 +49,8 @@ class Issue extends Component {
     const { isOpen } = this.state;
 
     console.log(moment().format('MMMM Do YYYY, h:mm:ss A'));
+    console.log(Date.now());
+    console.log(Date());
 
     return (
       <SectionWrapper columnDefs="col form-wrapper ">

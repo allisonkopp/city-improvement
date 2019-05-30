@@ -23,11 +23,12 @@ export const schema = {
     },
     {
       label: 'Date',
-      type: 'date',
+      type: 'text',
       id: 'date',
       widget: 'input',
       readOnly: true,
-      defaultValue: moment().format('YYYY-MM-DD')
+      defaultValue: moment().format('YYYY-MM-DD'),
+      placeHolder: moment().format('MMMM Do YYYY, h:mm:ss A')
     },
     {
       label: 'Photo',

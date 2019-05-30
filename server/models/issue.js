@@ -29,7 +29,8 @@ const IssueSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now()
+    default: Date()
+    // required: true
   },
   photoUrl: {
     type: String,
