@@ -1,7 +1,9 @@
+import { getDate } from '../../utils';
+
 export const schema = {
   id: 'issueForm',
-  formHeading: 'Submit Your Issue',
-  submitText: 'Submit',
+  formHeading: 'Report your issue',
+  submitText: "Let's fix it",
   fields: [
     {
       label: 'Type of Issue',
@@ -19,22 +21,25 @@ export const schema = {
       widget: 'dropdown'
     },
     {
-      label: 'Comments',
-      type: 'text',
-      id: 'comments',
-      widget: 'input'
-    },
-    {
       label: 'Date',
       type: 'text',
       id: 'date',
-      widget: 'input'
+      widget: 'input',
+      readOnly: true,
+      placeholder: getDate
     },
     {
       label: 'Photo',
       type: 'file',
       id: 'photoUrl',
       widget: 'file'
+    },
+    {
+      label: 'Comments',
+      type: 'text',
+      id: 'comments',
+      widget: 'textarea',
+      rows: 5
     }
   ]
 };

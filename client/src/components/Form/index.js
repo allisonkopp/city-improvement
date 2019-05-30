@@ -30,7 +30,7 @@ class Form extends Component {
     this.setState(newState);
   };
   render() {
-    const { formHeading, schema: { id, fields = [], submitText } = {} } = this.props;
+    const { schema: { id, fields = [], submitText, formHeading } = {} } = this.props;
     return (
       <form onSubmit={this.onSubmit} id={id}>
         <h1 className="display-4 m-b-2">{formHeading}</h1>
@@ -42,7 +42,7 @@ class Form extends Component {
             value={this.state[field.id]}
           />
         ))}
-        <button className="btn btn-primary" type="submit">
+        <button className="btn btn-primary center-element" type="submit">
           {submitText}
         </button>
       </form>

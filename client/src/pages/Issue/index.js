@@ -47,10 +47,11 @@ class Issue extends Component {
   render() {
     const { isOpen } = this.state;
 
-    console.log(moment(Date()).format('MMMM Do YYYY, h:mm:ss A'));
+    console.log(moment().format('MMMM Do YYYY, h:mm:ss A'));
 
     return (
       <SectionWrapper columnDefs="col form-wrapper ">
+        {/* <h1>Report your issue</h1> */}
         <Form schema={schema} handleSubmit={this.addIssue} />
         <Modal
           isOpen={isOpen}

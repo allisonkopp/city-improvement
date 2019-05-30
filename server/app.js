@@ -36,18 +36,6 @@ app.use((req, res, next) => {
 
 app.use(express.static(path.join(__dirname, '../client/build')));
 
-// // For any routes that starts with "/api", catch 404 and forward to error handler
-// // app.use('/api/*', (req, res, next) => {
-// //   let err = new Error('Not Found')
-// //   err.status = 404
-// //   next(err)
-// // })
-
-// // For any other routes, redirect to the index.html file of React
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
-// });
-
 app.use(cors());
 
 app.use(bodyParser.json());

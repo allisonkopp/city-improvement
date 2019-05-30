@@ -13,11 +13,13 @@ const Input = ({
   defaultValue,
   defaultChecked,
   isChecked,
-  readOnly
+  readOnly,
+  rows,
+  cols
 }) => (
   <>
     <label>{label}</label>
-    <input
+    <textarea
       id={id}
       className={classNames('form-control', ...classes)}
       required={required}
@@ -25,10 +27,12 @@ const Input = ({
       checked={isChecked}
       defaultChecked={defaultChecked}
       placeholder={placeholder}
-      value={type !== 'file' ? value : String() || Date()}
+      value={type !== 'file' ? value : String()}
       onChange={e => onChange({ id, value: e.target.value })}
       defaultValue={defaultValue}
       readOnly={readOnly}
+      rows={rows}
+      cols={cols}
     />
   </>
 );

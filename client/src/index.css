@@ -28,6 +28,7 @@ a:hover {
 .center-element {
   display: flex;
   justify-content: center;
+  margin: 0 auto;
 }
 
 .main-background {
