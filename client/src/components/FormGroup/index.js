@@ -1,10 +1,11 @@
 import React from 'react';
-import { Input, InputDropdown, InputGroup } from './Widgets';
+import { Input, InputDropdown, InputGroup, FileInput } from './Widgets';
 const FormGroup = props => {
   const Component = {
     input: Input,
     dropdown: InputDropdown,
-    group: InputGroup
+    group: InputGroup,
+    file: FileInput
   }[props.widget];
   return (
     <div className="form-group">
@@ -14,22 +15,3 @@ const FormGroup = props => {
 };
 
 export default FormGroup;
-
-// import React from 'react';
-
-// const FormGroup = ({ type, label, placeholder, id, value, onChange, required }) => (
-//   <div className="form-group">
-//     <label>{label}</label>
-//     <input
-//       id={id}
-//       className="form-control"
-//       required={required}
-//       type={type}
-//       placeholder={placeholder}
-//       value={type !== 'file' ? value : String()}
-//       onChange={onChange(id)}
-//     />
-//   </div>
-// );
-
-// export default FormGroup;

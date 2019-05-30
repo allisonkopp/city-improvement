@@ -11,7 +11,8 @@ const icons = {
   pothole: 'aquarium-15',
   recycling: 'bakery-15',
   'traffic-pattern': 'bank-15',
-  garbage: 'dog-park-15'
+  garbage: 'dog-park-15',
+  other: 'golf-15'
 };
 
 export const generateStreetLayer = layerId => ({

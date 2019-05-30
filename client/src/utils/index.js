@@ -59,14 +59,7 @@ export const filterBySeason = (dataArr = [], seasonsArray = []) =>
     else return x;
   });
 
-export const filterByCity = (dataArr = [], citiesArr = []) => {
-  dataArr.filter(x => {
-    if (citiesArr.includes('Miami')) return x.city === 'Miami';
-    else if (citiesArr.includes('Los Angeles')) return x.city === 'Los Angeles';
-    else if (citiesArr.includes('New York')) return x.city === 'New York';
-    else return x;
-  });
-};
+export const filterByCity = (dataArr = [], city) => dataArr.filter(x => x.city === city);
 
 // const getDefaultImages = issue => {
 //   if (issue === "Flood") return

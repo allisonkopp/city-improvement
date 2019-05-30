@@ -29,11 +29,6 @@
   border-radius: 5px;
 }
 
-input[type='file'] {
-  opacity: 0;
-  width: 100%;
-}
-
 .browse-btn {
   background: grey;
   color: #fff;

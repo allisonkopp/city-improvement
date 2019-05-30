@@ -1,51 +1,55 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import { SectionWrapper, CardContainer } from '../../components';
-import { parseDate } from '../../utils';
-
+import FLOOD from '../../assets/images/flood.png';
+import DEBRIS from '../../assets/images/debris.png';
+import GARBAGE from '../../assets/images/garbage.png';
+import LIGHT from '../../assets/images/light.png';
+import OTHER from '../../assets/images/other.png';
+import POTHOLE from '../../assets/images/pothole.jpg';
+import TRAFFIC from '../../assets/images/traffic.png';
+import RECYCLING from '../../assets/images/recycling.png';
 import './Feed.css';
 
-const FLOOD = require('../../assets/images/flood.png');
-const DEBRIS = require('../../assets/images/debris.png');
-const GARBAGE = require('../../assets/images/garbage.png');
-const LIGHT = require('../../assets/images/light.png');
-const OTHER = require('../../assets/images/other.png');
-const POTHOLE = require('../../assets/images/pothole.jpg');
-const TRAFFIC = require('../../assets/images/traffic.png');
-const RECYCLING = require('../../assets/images/recycling.png');
-
-const defaultPhotos = item => {
-  if (item.issue === 'Flood') return FLOOD;
-  else if (item.issue === 'Garbage') return GARBAGE;
-  else if (item.issue === 'Recycling') return RECYCLING;
-  else if (item.issue === 'Light Outage') return LIGHT;
-  else if (item.issue === 'Debris') return DEBRIS;
-  else if (item.issue === 'Pothole') return POTHOLE;
-  else if (item.issue === 'Traffic Pattern') return TRAFFIC;
-  else if (item.issue === 'Other') return OTHER;
-};
+const defaultPhotos = ({ issue }) =>
+  ({
+    Flood: FLOOD,
+    Garbage: GARBAGE,
+    Recycling: RECYCLING,
+    'Light Outage': LIGHT,
+    Debris: DEBRIS,
+    Pothole: POTHOLE,
+    'Traffic Pattern': TRAFFIC,
+    Other: OTHER
+  }[issue]);
 
 class Feed extends Component {
-  state = { data: [] };
+  state = { data: [], refetch: false };
 
   componentDidMount() {
     this.getUserData();
+  }
+
+  componentDidUpdate() {
+    this.state.refetch && this.getUserData();
   }
 
   getUserData = async _ => {
     const { data = {} } = await axios.get('/feed');
     const issues = Object.values(data.issues);
     const sortedIssues = issues.sort((x, y) => x.resolved - y.resolved);
-    this.setState({ data: sortedIssues });
+    this.setState({ data: sortedIssues, refetch: false });
   };
 
-  // refetch = _ => this.setState({ refetch: true });
+  refetch = _ => this.setState({ refetch: true });
 
   getStatus = item => (item.resolved ? 'Resolved' : 'Unresolved');
 
-  toggleStatus = id => _ => axios.post(`/feed/update/${id}`, { resolved: true, dateResolved: Date() });
+  toggleStatus = id => async _ => {
+    await axios.post(`/feed/update/${id}`, { resolved: true, dateResolved: Date() });
+    this.refetch();
+  };
 
   render() {
     const { data } = this.state;
@@ -53,6 +57,7 @@ class Feed extends Component {
     return (
       <div className="feed-background">
         <SectionWrapper colDefs="card-group">
+          <h1>Your feed</h1>
           {data.map(item => (
             <div>
               <CardContainer
@@ -74,4 +79,4 @@ class Feed extends Component {
   }
 }
 
-export default withRouter(Feed);
+export default Feed;

@@ -5,9 +5,18 @@ export const schema = {
   fields: [
     {
       label: 'Type of Issue',
-      id: 'issues',
-      options: ['Flood', 'Garbage', 'Recycling', 'Light Outage', 'Debris', 'Pothole', 'Traffic Pattern', 'Other'],
-      widget: 'inputDropdown'
+      id: 'issue',
+      options: [
+        { id: 'flood', value: 'Flood', display: 'Flood' },
+        { id: 'garbage', value: 'Garbage', display: 'Garbage' },
+        { id: 'recycling', value: 'Recycling', display: 'Recycling' },
+        { id: 'light-outage', value: 'Light Outage', display: 'Light Outage' },
+        { id: 'debris', value: 'Debris', display: 'Debris' },
+        { id: 'pothole', value: 'Pothole', display: 'Pothole' },
+        { id: 'traffic-pattern', value: 'Traffic Pattern', display: 'Traffic Pattern' },
+        { id: 'other', value: 'Other', display: 'Other' }
+      ],
+      widget: 'dropdown'
     },
     {
       label: 'Comments',
@@ -24,8 +33,8 @@ export const schema = {
     {
       label: 'Photo',
       type: 'file',
-      id: 'comments',
-      widget: 'input'
+      id: 'photoUrl',
+      widget: 'file'
     }
   ]
 };

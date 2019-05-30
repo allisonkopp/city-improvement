@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SectionWrapper, GraphComponent, DynamicButton, Circle } from '../../components';
+import { SectionWrapper, GraphComponent, DynamicButton, PieComponent } from '../../components';
 import { labels, calculateMax, createObjArr, filterBySeason, filterByCity, groupBy } from '../../utils';
 import './Result.css';
 import ProgressBar from 'progressbar.js';
@@ -10,42 +10,41 @@ const cities = ['Miami', 'Los Angeles', 'New York'];
 class Result extends Component {
   state = {
     data: [],
-    rawData: this.props.issues,
+    filteredIssues: [],
     activeSeasons: ['Spring'],
-    activeCities: 'Miami',
+    activeCity: 'Miami',
     activeGraph: 'Area',
     activeIndex: 0
     // pieData: []
   };
 
   componentDidMount() {
-    const { issues = [] } = this.props;
-    this.createDataSet(issues);
-    // this.getPieData();
+    this.createDataSet();
+    this.getPieData();
   }
 
-  createDataSet = issues => {
-    const { season } = this.state;
-    const data = createObjArr(labels, filterBySeason(issues, season));
-    this.setState({ data });
+  createDataSet = _ => {
+    const { issues } = this.props;
+    const { activeCity } = this.state;
+    const data = createObjArr(labels, filterByCity(issues, activeCity));
+    const filteredIssues = issues.filter(issue => issue.city === activeCity);
+    this.setState({ data, filteredIssues });
   };
 
   getSeason = season => _ => {
-    const { activeSeasons } = this.state;
+    const { activeSeasons, filteredIssues } = this.state;
     const seasonActive = activeSeasons.includes(season);
     const newSeasons = seasonActive ? activeSeasons.filter(s => s !== season) : [...activeSeasons, season];
-    const { issues } = this.props;
-    const data = createObjArr(labels, filterBySeason(issues, newSeasons));
+    const data = createObjArr(labels, filterBySeason(filteredIssues, newSeasons));
     this.setState({ activeSeasons: newSeasons, data });
   };
 
-  getCity = city => _ => {
-    const { activeCities } = this.state;
-    const cityActive = activeCities.includes(city);
-    const newCities = cityActive ? activeCities.filter(c => c !== city) : [...activeCities, city];
+  getCity = e => {
     const { issues } = this.props;
-    const data = createObjArr(labels, filterByCity(issues, newCities));
-    this.setState({ activeCities: newCities, data });
+    const city = e.target.value;
+    const data = createObjArr(labels, filterByCity(issues, city));
+    const filteredIssues = issues.filter(issue => issue.city === city);
+    this.setState({ activeCity: city, data, filteredIssues });
   };
 
   switchGraph = graphType => _ => {
@@ -74,51 +73,35 @@ class Result extends Component {
     );
   };
 
-  // renderPieGraph = _ => {
-  //   const { pieData } = this.state;
-  //   return (
-  //     <PieComponent
-  //       activeIndex={this.state.activeIndex}
-  //       dataKey={'resolved'}
-  //       onMouseEnter={this.onPieEnter}
-  //       data={pieData}
-  //     />
-  //   );
-  // };
+  renderPieGraph = _ => <PieComponent data={this.state.pieData} />;
 
-  // getStatus = status => this.state.rawData && this.state.rawData.filter(x => x.resolved === status).length;
+  getStatus = status => this.props.issues && this.props.issues.filter(x => x.resolved === status).length;
 
-  // getPieData = _ => {
-  //   const pieData = [
-  //     { name: 'Resolved', resolved: this.getStatus(true) },
-  //     { name: 'Unresolved', resolved: this.getStatus(false) }
-  //   ];
-  //   this.setState({ pieData });
-  // };
-
-  // onPieEnter = (data, index) => {
-  //   this.setState({
-  //     activeIndex: index
-  //   });
-  // };
+  getPieData = _ => {
+    const pieData = [
+      { name: 'Resolved', resolved: this.getStatus(true) },
+      { name: 'Unresolved', resolved: this.getStatus(false) }
+    ];
+    this.setState({ pieData });
+  };
 
   render() {
     //console.log(this.getCity(25.766128199999997, -80.1961674));
     // console.log(this.getCity(40.715, -73.9843));
     // console.log(this.getCity(34.0522, -118.2437));
 
-    const { data, activeGraph, activeSeasons, activeCities, rawData } = this.state;
+    const { data, activeGraph, activeSeasons } = this.state;
 
-    const groupByUser = _ => rawData && groupBy(rawData, 'user');
+    const groupByUser = _ => this.props.issues && groupBy(this.props.issues, 'user');
     const getTotalUsers = _ => Object.keys(groupByUser()).length;
 
     const getTotal = (arr, name) => arr.reduce((x, y) => x + y[name], 0);
 
-    const getPercentage = _ => Math.round((getStatus(false) / getTotal(data, 'frequency')) * 100);
+    const getPercentage = _ => Math.round((this.getStatus(false) / getTotal(data, 'frequency')) * 100);
 
     const getTopIssue = _ => data.length && calculateMax(data).issue;
 
-    const getStatus = status => this.state.rawData && this.state.rawData.filter(x => x.resolved === status).length;
+    // const getStatus = status => this.props.issues && this.props.issues.filter(x => x.resolved === status).length;
 
     const getTopThree = _ => data && data.sort((x, y) => y.frequency - x.frequency).slice(0, 3);
 
@@ -143,6 +126,15 @@ class Result extends Component {
                   />
                 ))}
               </div>
+              <div>
+                <select className="form-control" onChange={this.getCity}>
+                  {cities.map(city => (
+                    <option className="form-control" value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div>
               {areaActive && this.renderAreaGraph()}
@@ -162,46 +154,35 @@ class Result extends Component {
                   ))}
                 </div>
               </div>
-              <div>
-                <p>Toggle by city: </p>
-                <div>
-                  {cities.map(city => (
-                    <DynamicButton
-                      key={city}
-                      label={city}
-                      onClick={this.getCity}
-                      active={activeCities.includes(city)}
-                    />
-                  ))}
-                </div>
-              </div>
             </div>
           </div>
         </SectionWrapper>
-        <SectionWrapper>
+        <SectionWrapper className="result-background">
           <div className="container">
             <div className="row">
-              <div className="col">
+              <div className="col result-title">
                 <h1>The takeaway</h1>
+                {this.renderPieGraph()}
               </div>
             </div>
             <div className="row result-container">
-              <div className="col-4">
+              <div className="col-lg-4">
                 <div className="card">
                   <div className="card-body">
                     <h2>
-                      {getTotal(data, 'frequency')} <br />
+                      <span id="total-issues">{getTotal(data, 'frequency')}</span>
+                      <br />
                       Total Issues
                     </h2>
                     <p>Submitted by {getTotalUsers()} users</p>
                   </div>
                 </div>
               </div>
-              <div className="col-4">
+              <div className="col-lg-4">
                 <div className="card">
                   <div className="card-body">
-                    <p>{getStatus(false)} issues have not been resolved </p>
-                    <p>{getStatus(true)} issues been resolved </p>
+                    <p>{this.getStatus(false)} issues have not been resolved </p>
+                    <p>{this.getStatus(true)} issues been resolved </p>
                     <div className="progress blue" data-percentage={getPercentage()}>
                       <span className="progress-left">
                         <span className="progress-bar" />
@@ -220,11 +201,10 @@ class Result extends Component {
                   </div>
                 </div>
               </div>
-
-              <div className="col-4">
-                <div className="card">
+              <div className="col-lg-4">
+                <div className="card top-issue-card">
                   <div className="card-body">
-                    <p>The top three issues are:</p>
+                    <h2>Top three issues</h2>
                     <ol>
                       {getTopThree().map((x, i) => (
                         <li>{x.issue}</li>
@@ -235,7 +215,6 @@ class Result extends Component {
               </div>
             </div>
           </div>
-
           {/* <p>The top three are {getTopThree().map(x => x.issue)}</p> */}
         </SectionWrapper>
       </div>
