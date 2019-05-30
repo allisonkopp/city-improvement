@@ -3,8 +3,6 @@ import { AreaChart, BarChart, Area, Bar, XAxis, YAxis, Tooltip, CartesianGrid, R
 
 import './GraphComponent.css';
 
-import { CustomizedAxisTick } from './CustomizedAxisTick';
-// import { CustomizedLabel } from './CustomizedLabel';
 import { CustomTooltip } from './CustomTooltip';
 
 const GraphComponent = ({ data, xAxisLabel, dataKey, graphType, stroke, fill, type }) => {
@@ -34,7 +32,6 @@ const GraphComponent = ({ data, xAxisLabel, dataKey, graphType, stroke, fill, ty
           <XAxis dataKey={xAxisLabel} height={60} />
           <YAxis type="number" domain={[0, 'dataMax + 1']} allowDecimals={false} />
           <Tooltip content={<CustomTooltip />} active />
-          {/* <Legend /> */}
           <Segment dataKey={dataKey} stroke={stroke} fill={fill} type={type} />
         </Component>
       </ResponsiveContainer>

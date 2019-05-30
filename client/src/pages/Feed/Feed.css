@@ -1,12 +1,17 @@
 .feed-background {
   /* background-image: url('../../assets/images/texture.jpg');
   background-size: cover; */
-  background-color: rgba(188, 188, 188, 0.5);
+  /* background-color: rgba(188, 188, 188, 0.5); */
 }
 
 .card-group {
   width: 100%;
   /* border-spacing: 0.25rem 0 important!; */
+}
+
+h1 {
+  text-align: center;
+  padding-bottom: 2rem;
 }
 
 @media (min-width: 544px) {

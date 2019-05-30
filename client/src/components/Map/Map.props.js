@@ -5,13 +5,13 @@ export const generateMapOptions = ({ lat, lng }) => ({
   center: [lng || -80.196, lat || 25.766]
 });
 const icons = {
-  debris: 'natural-11',
+  debris: 'park-11',
   flood: 'aquarium-11',
-  'light-outage': 'lighthouse-11',
+  'light-outage': 'star-15',
   pothole: 'car-11',
-  recycling: 'recycling-11',
+  recycling: 'triangle-stroked-15',
   'traffic-pattern': 'bicycle-share-11',
-  garbage: 'waste-basket-11',
+  garbage: 'cemetery-15',
   other: 'circle-stroked-11'
 };
 

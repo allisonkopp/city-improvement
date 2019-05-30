@@ -3,20 +3,35 @@
   background-color: 'azure';
 }
 
-.mapbox-marker {
+/* .mapbox-marker {
   width: 35px;
   height: 35px;
   background-image: url('https://png2.kisspng.com/sh/514f440b9a977c1495090cfefc443a5b/L0KzQYm3U8I5N5loj5H0aYP2gLBuTfNwdaF6jNd7LXnmf7B6TfNtcaEyeeR9LXzyc7L7if9vNZpoh9C2NXHlcrW9UfY1QGI1SKs3NUS4RoGAVscyPWM3SqcENEi6Qoq8Ur5xdpg=/kisspng-computer-icons-clip-art-location-icon-5abbd61f481009.5456076715222594872952.png');
   background-size: cover;
   border-radius: 50%;
   cursor: pointer;
-}
+} */
 
 .map-container {
   display: flex;
   flex-direction: column;
+  margin-top: 5.5rem;
+}
+
+.map-wrapper {
+  width: 100%;
 }
 
 .layer-list {
   margin-bottom: 50px;
+}
+
+.issue-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.button-list {
+  display: flex;
+  justify-content: space-evenly;
 }

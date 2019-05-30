@@ -53,17 +53,19 @@ class Issue extends Component {
     console.log(Date());
 
     return (
-      <SectionWrapper columnDefs="col form-wrapper ">
-        <Form schema={schema} handleSubmit={this.addIssue} />
-        <Modal
-          isOpen={isOpen}
-          content={successMessage}
-          toggleModal={this.toggleModal}
-          iconClass={'material-icons icn-person'}
-          iconContent={'wb_sunny'}
-          buttonContent={successBtn}
-        />
-      </SectionWrapper>
+      <div className="main-background">
+        <SectionWrapper columnDefs="col form-wrapper ">
+          <Form schema={schema} handleSubmit={this.addIssue} />
+          <Modal
+            isOpen={isOpen}
+            content={successMessage}
+            toggleModal={this.toggleModal}
+            iconClass={'material-icons icn-person'}
+            iconContent={'wb_sunny'}
+            buttonContent={successBtn}
+          />
+        </SectionWrapper>
+      </div>
     );
   }
 }

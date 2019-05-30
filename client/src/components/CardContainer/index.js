@@ -13,24 +13,26 @@ const formatPlural = n => {
 // };
 
 const CardContainer = ({ photoUrl, issue, comment, date, updatedDate, status, resolved, toggleStatus, dateDiff }) => (
-  <div className="col-lg-4 col-md-12 indv-card">
+  <div className=" col-md-12 indv-card">
     <div className="card">
-      <div className="view">
-        <img src={photoUrl} className="card-img-top" alt="" height="100vh" />
-      </div>
-      <div className="card-body">
-        <h4 className="card-title">{issue}</h4>
-        <p className="card-text">{comment}</p>
-        {resolved ? (
-          <p className="card-text">
-            Date resolved: {updatedDate} <br />
-            This issue was resolved {formatPlural({ dateDiff })}
-            {/* This issue was resolved {dateDiff} */}
-          </p>
-        ) : (
-          <p className="card-text">Date submitted: {date}</p>
-        )}
-        <p className="card-text">Status: {status}</p>
+      <div className="card-horizontal">
+        <div className="view">
+          <img src={photoUrl} className="card-img-top" alt="" height="180vh" width="250vw" />
+        </div>
+        <div className="card-body">
+          <h4 className="card-title">{issue}</h4>
+          <p className="card-text">{comment}</p>
+          {resolved ? (
+            <p className="card-text">
+              Date resolved: {updatedDate} <br />
+              This issue was resolved {formatPlural({ dateDiff })}
+              {/* This issue was resolved {dateDiff} */}
+            </p>
+          ) : (
+            <p className="card-text">Date submitted: {date}</p>
+          )}
+          <p className="card-text">Status: {status}</p>
+        </div>
       </div>
       <div className="card-footer">
         {resolved ? (

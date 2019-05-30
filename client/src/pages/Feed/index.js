@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import { SectionWrapper, CardContainer } from '../../components';
-import FLOOD from '../../assets/images/flood.png';
-import DEBRIS from '../../assets/images/debris.png';
-import GARBAGE from '../../assets/images/garbage.png';
-import LIGHT from '../../assets/images/light.png';
-import OTHER from '../../assets/images/other.png';
-import POTHOLE from '../../assets/images/pothole.jpg';
-import TRAFFIC from '../../assets/images/traffic.png';
-import RECYCLING from '../../assets/images/recycling.png';
+import FLOOD from '../../assets/images/flood-1.jpg';
+import DEBRIS from '../../assets/images/debris-1.png';
+import GARBAGE from '../../assets/images/garbage-1.jpg';
+import LIGHT from '../../assets/images/light-1.jpg';
+import OTHER from '../../assets/images/other-1.jpg';
+import POTHOLE from '../../assets/images/pothole-1.jpeg';
+import TRAFFIC from '../../assets/images/traffic-1.jpg';
+import RECYCLING from '../../assets/images/recycling-1.jpg';
 import './Feed.css';
 
 const defaultPhotos = ({ issue }) =>
@@ -55,9 +55,10 @@ class Feed extends Component {
     const { data } = this.state;
 
     return (
-      <div className="feed-background">
+      <div className="main-background">
         <SectionWrapper colDefs="card-group">
-          <h1>Your feed</h1>
+          <h1>YOUR FEED</h1>
+
           {data.map(item => (
             <div>
               <CardContainer

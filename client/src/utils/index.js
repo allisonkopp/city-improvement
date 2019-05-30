@@ -43,11 +43,17 @@ export const countIssues = (arr, issue) => arr && arr.filter(x => x.issue === is
 //Fix this if there are multiple with same frequency
 export const calculateMax = arr => arr.reduce((x, y) => (x.frequency > y.frequency ? x : y), arr[0]);
 
+export const getTotal = (arr, name) => arr.reduce((x, y) => x + y[name], 0);
+
 export const createFreqObj = (issue, frequency) => ({ issue, frequency });
+
+// export const createSeasonObj = (issue, frequency, season) => ({ issue, frequency, season });
+// export const createSeasonArr = (arr, dataArr, seasonArr) =>
+//   arr.map(x => createSeasonObj(x.issue, countIssues(dataArr, x.issue), seasonArr));
 
 export const createObjArr = (arr, dataArr) => arr.map(x => createFreqObj(x.issue, countIssues(dataArr, x.issue)));
 
-export const getMonth = date => date.slice(date.indexOf('-') + 1, date.indexOf('-') + 3);
+export const getMonth = date => date && date.slice(date.indexOf('-') + 1, date.indexOf('-') + 3);
 
 // export const getDate = moment().format('YYY-MM-DD, h:mm:ss A');
 
@@ -62,10 +68,6 @@ export const filterBySeason = (dataArr = [], seasonsArray = []) =>
   });
 
 export const filterByCity = (dataArr = [], city) => dataArr.filter(x => x.city === city);
-
-// const getDefaultImages = issue => {
-//   if (issue === "Flood") return
-// }
 
 export const popupRenderer = (props = {}) => {
   const picNode = props.photoUrl ? `<img src=${props.photoUrl} alt='image'>` : '<div />';

@@ -103,21 +103,23 @@ class Map extends Component {
     const { visibleLayers, activeMap } = this.state;
     return (
       <div className="map-container">
-        <div className="layer-list">
-          {mapViews.map(type => (
-            <DynamicButton key={type} active={activeMap === type} onClick={this.toggleMap} label={type} />
-          ))}
-        </div>
         <div id="map" ref={el => (this.mapContainer = el)} />
-        <div className="layer-list">
-          {layers.map(layer => (
-            <DynamicButton
-              key={layer}
-              active={visibleLayers.includes(layer)}
-              onClick={this.toggleLayer}
-              label={layer}
-            />
-          ))}
+        <div className="button-list">
+          <div className="layer-list">
+            {mapViews.map(type => (
+              <DynamicButton key={type} active={activeMap === type} onClick={this.toggleMap} label={type} />
+            ))}
+          </div>
+          <div className="layer-list issue-btn">
+            {layers.map(layer => (
+              <DynamicButton
+                key={layer}
+                active={visibleLayers.includes(layer)}
+                onClick={this.toggleLayer}
+                label={layer}
+              />
+            ))}
+          </div>
         </div>
       </div>
     );
