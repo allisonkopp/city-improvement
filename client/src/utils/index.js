@@ -70,7 +70,7 @@ export const filterBySeason = (dataArr = [], seasonsArray = []) =>
 export const filterByCity = (dataArr = [], city) => dataArr.filter(x => x.city === city);
 
 export const popupRenderer = (props = {}) => {
-  const picNode = props.photoUrl ? `<img src=${props.photoUrl} alt='image'>` : '<div />';
+  const picNode = props.photoUrl ? `<img src=${props.photoUrl} alt='image' height="100px"> ` : '<div />';
   return `
     <div>
     <h2>${props.issue}</h2>
