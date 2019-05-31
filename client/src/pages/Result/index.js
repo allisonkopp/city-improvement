@@ -193,7 +193,7 @@ class Result extends Component {
                   <div className="card-body">
                     <h2>Top Issues</h2>
                     <h3>in {activeCity}</h3>
-                    {/* <p>in {activeCity}</p> */}
+                    
                     <ol>
                       {this.getTopThree().map((x, i) => (
                         <li>{x.issue}</li>

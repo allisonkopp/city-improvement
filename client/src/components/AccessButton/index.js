@@ -9,7 +9,7 @@ const AccessButton = props => {
   };
   return isLoggedIn() ? (
     <>
-      <NavLink className="nav-item nav-link" to="/profile">
+      <NavLink className="nav-item nav-link profile-link" to="/profile">
         My Profile
       </NavLink>
       <button className="btn btn-primary pull-md-right" onClick={handleLogout}>

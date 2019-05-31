@@ -43,6 +43,10 @@ a:hover {
   height: 100vh;
 }
 
+.profile-link {
+  margin-right: 2rem;
+}
+
 /* Modifier Styles */
 
 nav > div > div {

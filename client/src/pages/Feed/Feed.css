@@ -1,11 +1,15 @@
 .feed-background {
-  /* background-image: url('../../assets/images/texture.jpg');
-  background-size: contain
-  /* background-color: rgba(188, 188, 188, 0.5); */
-  /* background-image: url('../../assets/images/brick.jpg');
-  background-size: contain; */
+  background: url('../../assets/images/city.jpeg') no-repeat;
+  /* background: url('../../assets/images/cityscape.jpeg') no-repeat; */
+  background-size: cover;
+  background-position: fixed;
   background-attachment: fixed;
   background-repeat: no-repeat;
+}
+
+.feed-wrapper {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 1rem;
 }
 
 .card-group {

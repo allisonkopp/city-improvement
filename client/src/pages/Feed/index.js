@@ -65,15 +65,17 @@ class Feed extends Component {
     const { filteredData } = this.state;
 
     return (
-      <div className="main-background feed-background">
-        <SectionWrapper colDefs="card-group">
+      <div className="feed-background">
+        <SectionWrapper colDefs="card-group" rowDefs="feed-wrapper">
           <h1>YOUR FEED</h1>
-          <input
-            className="search-bar"
-            type="text"
-            placeholder="Filter through your issues"
-            onChange={this.handleSearch}
-          />
+          <div className="search-container">
+            <input
+              className="search-bar"
+              type="text"
+              placeholder="Filter through your issues"
+              onChange={this.handleSearch}
+            />
+          </div>
 
           {filteredData.map(item => (
             <div>
