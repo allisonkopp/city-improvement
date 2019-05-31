@@ -25,7 +25,7 @@ const defaultPhotos = ({ issue }) =>
   }[issue]);
 
 class Feed extends Component {
-  state = { data: [], refetch: false };
+  state = { data: [], refetch: false, filteredData: [] };
 
   componentDidMount() {
     this.getUserData();
@@ -39,7 +39,17 @@ class Feed extends Component {
     const { data = {} } = await axios.get('/feed');
     const issues = Object.values(data.issues);
     const sortedIssues = issues.sort((x, y) => x.resolved - y.resolved);
-    this.setState({ data: sortedIssues, refetch: false });
+    this.setState({ data: sortedIssues, refetch: false, filteredData: sortedIssues });
+  };
+
+  handleSearch = e => {
+    const { data } = this.state;
+    const searchInput = e.target.value;
+    console.log(searchInput);
+    if (!searchInput) return this.setState({ filteredData: data });
+    const filteredData = data.filter(x => x.issue.toLowerCase().includes(searchInput.toLowerCase()));
+    console.log(filteredData);
+    this.setState({ filteredData });
   };
 
   refetch = _ => this.setState({ refetch: true });
@@ -52,14 +62,20 @@ class Feed extends Component {
   };
 
   render() {
-    const { data } = this.state;
+    const { filteredData } = this.state;
 
     return (
       <div className="main-background feed-background">
         <SectionWrapper colDefs="card-group">
           <h1>YOUR FEED</h1>
+          <input
+            className="search-bar"
+            type="text"
+            placeholder="Filter through your issues"
+            onChange={this.handleSearch}
+          />
 
-          {data.map(item => (
+          {filteredData.map(item => (
             <div>
               <CardContainer
                 issue={item.issue}

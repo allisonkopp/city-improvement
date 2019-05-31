@@ -167,10 +167,7 @@ class Result extends Component {
                 <div className="card">
                   <div className="card-body total-issues-card">
                     <h2>Total Issues</h2>
-                    <div className="number-wrapper">
-                      {this.props.issues && this.props.issues.length}
-                      {/* <span id="total-issues">{this.props.issues && this.props.issues.length}</span> */}
-                    </div>
+                    <div className="number-wrapper">{this.props.issues && this.props.issues.length}</div>
 
                     <h3>Overall</h3>
 

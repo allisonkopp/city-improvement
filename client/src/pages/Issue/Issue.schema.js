@@ -1,4 +1,3 @@
-import { getDate } from '../../utils';
 import moment from 'moment';
 
 export const schema = {
