@@ -55,7 +55,7 @@ class Feed extends Component {
     const { data } = this.state;
 
     return (
-      <div className="main-background">
+      <div className="feed-background">
         <SectionWrapper colDefs="card-group">
           <h1>YOUR FEED</h1>
 

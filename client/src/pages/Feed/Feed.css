@@ -1,7 +1,9 @@
 .feed-background {
   /* background-image: url('../../assets/images/texture.jpg');
-  background-size: cover; */
+  background-size: contain
   /* background-color: rgba(188, 188, 188, 0.5); */
+  background-image: url('../../assets/images/brick.jpg');
+  background-size: contain;
 }
 
 .card-group {

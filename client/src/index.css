@@ -1,5 +1,9 @@
 /* Base styles */
 
+body {
+  font-family: 'Arimo';
+}
+
 a:hover {
   color: rgba(49, 176, 213, 0.7);
 }
@@ -33,8 +37,10 @@ a:hover {
 
 .main-background {
   background: url('./assets/images/city.jpeg') no-repeat;
+  /* background: url('./assets/images/cityscape.jpeg') no-repeat; */
   background-size: cover;
   background-position: fixed;
+  height: 100vh;
 }
 
 /* Modifier Styles */

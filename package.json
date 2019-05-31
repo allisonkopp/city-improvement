@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/allisonkopp/city-improvement/issues"
   },
-  "homepage": "https://github.com/allisonkopp/city-improvement#readme"
+  "homepage": "https://github.com/allisonkopp/city-improvement#readme",
+  "dependencies": {
+    "react-reveal": "^1.2.2"
+  }
 }

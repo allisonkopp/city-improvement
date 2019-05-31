@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SectionWrapper, GraphComponent, DynamicButton, PieComponent } from '../../components';
 import { labels, calculateMax, createObjArr, filterBySeason, filterByCity, groupBy, getTotal } from '../../utils';
 import './Result.css';
+import Pulse from 'react-reveal/Pulse';
 
 const graphOptions = ['Area', 'Bar'];
 const seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
@@ -161,42 +162,39 @@ class Result extends Component {
         </SectionWrapper>
         <SectionWrapper className="result-background">
           <div className="container">
-            {/* <div className="row">
-              <div className="col result-title">
-                <h1>The takeaway</h1>
-              </div>
-            </div> */}
             <div className="row result-container">
               <div className="col-lg-3 col-med-12">
                 <div className="card">
                   <div className="card-body total-issues-card">
                     <h4>Overall</h4>
                     <h2>
-                      {/* <span id="total-issues">{getTotal(data, 'frequency')}</span> */}
                       <span id="total-issues">{this.props.issues && this.props.issues.length}</span>
                       <br />
                       Total Issues
                     </h2>
                     <p>Submitted by {this.getTotalUsers()} users</p>
-                    <p>
-                      {filteredIssues && filteredIssues.length} from {activeCity}
-                    </p>
+                    <hr />
+                    <h3>
+                      {filteredIssues && filteredIssues.length} <br />
+                      <span id="filter-issues">From {activeCity}</span>
+                    </h3>
                   </div>
                 </div>
               </div>
               <div className="col-lg-6 col-md-12">
                 <div className="card">
                   <div className="card-body pie-card">
-                    <h3>Issue Status</h3>
                     {this.renderPieGraph()}
+                    <h3>Issue Status</h3>
                   </div>
                 </div>
               </div>
               <div className="col-lg-3 col-med-12">
                 <div className="card top-issue-card">
                   <div className="card-body">
-                    <h2>Top three issues</h2>
-                    <p>in {activeCity}</p>
+                    <h1>Top Issues</h1>
+                    <h1 class="ml2">in {activeCity}</h1>
+                    {/* <p>in {activeCity}</p> */}
                     <ol>
                       {this.getTopThree().map((x, i) => (
                         <li>{x.issue}</li>
