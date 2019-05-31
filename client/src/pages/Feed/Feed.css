@@ -2,8 +2,10 @@
   /* background-image: url('../../assets/images/texture.jpg');
   background-size: contain
   /* background-color: rgba(188, 188, 188, 0.5); */
-  background-image: url('../../assets/images/brick.jpg');
-  background-size: contain;
+  /* background-image: url('../../assets/images/brick.jpg');
+  background-size: contain; */
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 .card-group {

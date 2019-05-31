@@ -163,20 +163,22 @@ class Result extends Component {
         <SectionWrapper className="result-background">
           <div className="container">
             <div className="row result-container">
-              <div className="col-lg-3 col-med-12">
+              <div className="col-lg-3 col-md-12">
                 <div className="card">
                   <div className="card-body total-issues-card">
-                    <h4>Overall</h4>
-                    <h2>
-                      <span id="total-issues">{this.props.issues && this.props.issues.length}</span>
-                      <br />
-                      Total Issues
-                    </h2>
+                    <h2>Total Issues</h2>
+                    <div className="number-wrapper">
+                      {this.props.issues && this.props.issues.length}
+                      {/* <span id="total-issues">{this.props.issues && this.props.issues.length}</span> */}
+                    </div>
+
+                    <h3>Overall</h3>
+
                     <p>Submitted by {this.getTotalUsers()} users</p>
                     <hr />
                     <h3>
                       {filteredIssues && filteredIssues.length} <br />
-                      <span id="filter-issues">From {activeCity}</span>
+                      <span id="filter-issues">from {activeCity}</span>
                     </h3>
                   </div>
                 </div>
@@ -184,16 +186,16 @@ class Result extends Component {
               <div className="col-lg-6 col-md-12">
                 <div className="card">
                   <div className="card-body pie-card">
+                    <h2>Issue Status</h2>
                     {this.renderPieGraph()}
-                    <h3>Issue Status</h3>
                   </div>
                 </div>
               </div>
-              <div className="col-lg-3 col-med-12">
+              <div className="col-lg-3 col-md-12">
                 <div className="card top-issue-card">
                   <div className="card-body">
-                    <h1>Top Issues</h1>
-                    <h1 class="ml2">in {activeCity}</h1>
+                    <h2>Top Issues</h2>
+                    <h3>in {activeCity}</h3>
                     {/* <p>in {activeCity}</p> */}
                     <ol>
                       {this.getTopThree().map((x, i) => (
