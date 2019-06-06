@@ -1,6 +1,5 @@
 import React from 'react';
 import './Home.css';
-import { isLoggedIn } from '../../utils';
 import { NavLink } from 'react-router-dom';
 
 const Home = _ => (
@@ -10,7 +9,7 @@ const Home = _ => (
         <h1 className="display-3">City Improvement</h1>
         <p className="lead">Help to improve your city!</p>
         <div className="btn-container">
-          <NavLink className="btn btn-primary btn-lg" to={isLoggedIn ? '/issue' : '/register'}>
+          <NavLink className="btn btn-primary btn-lg" to="/register">
             Get started
           </NavLink>
           <NavLink className="btn btn-primary btn-lg" to="/about">
