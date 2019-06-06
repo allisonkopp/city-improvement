@@ -25,7 +25,7 @@ const CardContainer = ({ photoUrl, issue, comment, date, updatedDate, status, re
           {resolved ? (
             <p className="card-text">
               Date resolved: {updatedDate} <br />
-              This issue was resolved {formatPlural({ dateDiff })}
+              {/* This issue was resolved {formatPlural({ dateDiff })} */}
             </p>
           ) : (
             <p className="card-text">Date submitted: {date}</p>
