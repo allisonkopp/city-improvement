@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { SectionWrapper, GraphComponent, DynamicButton, PieComponent } from '../../components';
-import { labels, calculateMax, createObjArr, filterBySeason, filterByCity, groupBy, getTotal } from '../../utils';
+import { labels,  createObjArr, filterBySeason, filterByCity, groupBy } from '../../utils';
 import './Result.css';
-import Pulse from 'react-reveal/Pulse';
+
 
 const graphOptions = ['Area', 'Bar'];
 const seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
@@ -28,7 +28,7 @@ class Result extends Component {
     this.state.refetch && this.getPieData();
   }
 
-  refetch = _ => this.setState({ refetch: true });
+  refetch = () => this.setState({ refetch: true });
 
   createDataSet = _ => {
     const { issues } = this.props;

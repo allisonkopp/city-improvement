@@ -37,7 +37,6 @@ a:hover {
 
 .main-background {
   background: url('./assets/images/city.jpeg') no-repeat;
-  /* background: url('./assets/images/cityscape.jpeg') no-repeat; */
   background-size: cover;
   background-position: fixed;
   height: 100vh;
