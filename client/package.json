@@ -11,7 +11,7 @@
     "dotenv": "^8.0.0",
     "geocoder": "^0.2.3",
     "google-maps-react": "^2.0.2",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "maki": "^2.1.0",
     "mapbox-gl": "^1.0.0",
     "moment": "^2.24.0",
